@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Function to check if user is a developer
+    function isDeveloper() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'developer';
+    }
+    
+    // Function to check if user is office admin
+    function isOfficeAdmin() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'office_admin';
+    }
+
+    // Function to check if the user is part of the system (Dev or Office Admin)
+    function isStaff() {
+      return isDeveloper() || isOfficeAdmin();
+    }
+
+    // Public CMS Data Rules (Read-only if active)
+    match /cms_homepage/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_about/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_courses/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_services/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_charity/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_gallery/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+    match /cms_forms/{document=**} {
+      allow read: if true; // Public can read forms to submit them
+      allow write: if isDeveloper();
+    }
+    match /cms_media/{document=**} {
+      allow read: if true;
+      allow write: if isDeveloper();
+    }
+    match /cms_settings/{document=**} {
+      allow read: if true; // Public needs settings (e.g. logos, contact info)
+      allow write: if isDeveloper();
+    }
+    match /cms_notices/{document=**} {
+      allow read: if resource == null || resource.data.isActive == true || isDeveloper();
+      allow write: if isDeveloper();
+    }
+
+    // System Activity Logs
+    match /activityLogs/{document=**} {
+      // Internal logging function - allow creation if authenticated
+      allow create: if isAuthenticated();
+      allow read, update, delete: if isDeveloper();
+    }
+
+    // Office Data Rules
+    match /students/{document=**} {
+      allow read, write: if isStaff();
+    }
+    match /applications/{document=**} {
+      // Anyone can create an application
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+    match /enquiries/{document=**} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+    match /scholarships/{document=**} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+    match /charityApplications/{document=**} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+    match /formSubmissions/{document=**} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
+    match /notifications/{document=**} {
+      allow read, write: if isStaff();
+    }
+    match /followUps/{document=**} {
+      allow read, write: if isStaff();
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      // Users can read their own profile, devs can read all
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isDeveloper());
+      // Only developers can write to users (roles, etc.)
+      allow write: if isDeveloper();
+    }
+  }
+}

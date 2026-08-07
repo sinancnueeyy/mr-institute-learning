@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block CMS and Office paths from search engines
+Disallow: /developer/
+Disallow: /office/
+
+Sitemap: https://mrinstitute.edu/sitemap.xml
