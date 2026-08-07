@@ -45,3 +45,14 @@ To create a production-ready build:
 npm run build
 ```
 The output will be generated in the `dist/` folder.
+
+## Deployment
+
+This platform is configured for instant deployment to Vercel.
+
+1. Connect your GitHub repository to Vercel.
+2. The framework will be automatically detected as Vite.
+3. Supply all environment variables required from `.env.production.example`.
+4. Run `Deploy`.
+
+For detailed Vercel deployment information, please read the [Vercel Deployment Guide](VERCEL_DEPLOYMENT.md).
