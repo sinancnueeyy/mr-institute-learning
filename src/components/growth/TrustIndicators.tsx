@@ -3,22 +3,22 @@ import { ShieldCheck, Users, Award, BookOpen } from 'lucide-react';
 export const TrustIndicators = () => {
   const indicators = [
     {
-      icon: <ShieldCheck className="w-8 h-8 text-primary" />,
+      icon: <ShieldCheck className="w-8 h-8 text-brand-primary" />,
       title: "Government Certified",
       description: "All our programs are fully accredited and recognized."
     },
     {
-      icon: <Users className="w-8 h-8 text-primary" />,
+      icon: <Users className="w-8 h-8 text-brand-primary" />,
       title: "Expert Faculty",
       description: "Learn from industry professionals with years of experience."
     },
     {
-      icon: <Award className="w-8 h-8 text-primary" />,
+      icon: <Award className="w-8 h-8 text-brand-primary" />,
       title: "Career Support",
       description: "100% placement assistance and career guidance."
     },
     {
-      icon: <BookOpen className="w-8 h-8 text-primary" />,
+      icon: <BookOpen className="w-8 h-8 text-brand-primary" />,
       title: "Modern Curriculum",
       description: "Updated syllabus aligned with current industry standards."
     }
@@ -30,7 +30,7 @@ export const TrustIndicators = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {indicators.map((item, index) => (
             <div key={index} className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-brand-primary/5 rounded-md flex items-center justify-center mb-4">
                 {item.icon}
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>

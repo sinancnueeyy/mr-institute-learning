@@ -28,13 +28,13 @@ export function SortableList<T>({ items, onReorder, onRemove, renderItem }: Sort
   };
 
   if (!items || items.length === 0) {
-    return <div className="p-8 text-center text-text-muted bg-surface border border-border rounded-xl">No items added yet.</div>;
+    return <div className="p-8 text-center text-text-muted bg-surface border border-border rounded-md">No items added yet.</div>;
   }
 
   return (
     <div className="space-y-3">
       {items.map((item, index) => (
-        <div key={index} className="flex gap-4 items-center bg-white border border-border rounded-xl p-4 shadow-sm">
+        <div key={index} className="flex gap-4 items-center bg-white border border-border rounded-md p-4 shadow-sm">
           <div className="flex flex-col gap-1">
             <Button 
               variant="ghost" 

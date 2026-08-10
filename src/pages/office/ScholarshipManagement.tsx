@@ -126,7 +126,7 @@ export default function ScholarshipManagement() {
             <Eye className="w-4 h-4" />
           </Button>
           {item.status === 'pending' && (
-            <Button variant="ghost" size="sm" onClick={() => promptStatusChange(item.id, 'under_review')} className="text-indigo-600">
+            <Button variant="ghost" size="sm" onClick={() => promptStatusChange(item.id, 'under_review')} className="text-brand-primary">
               Review
             </Button>
           )}
@@ -161,7 +161,7 @@ export default function ScholarshipManagement() {
         ]}
       />
 
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-md border border-border overflow-hidden">
         <DataTable 
           data={filteredApps}
           columns={columns}
@@ -186,7 +186,7 @@ export default function ScholarshipManagement() {
               <StatusBadge status={mapStatus(selectedApp.status)} />
             </div>
 
-            <div className="bg-surface p-6 rounded-xl border border-border space-y-4">
+            <div className="bg-surface p-6 rounded-md border border-border space-y-4">
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-text-muted mb-1">Income Bracket</p>

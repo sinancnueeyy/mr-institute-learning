@@ -9,6 +9,7 @@ import { settingsRepository } from '../../repositories/cms';
 import { SectionEditor } from '../../components/cms/SectionEditor';
 import { SortableList } from '../../components/cms/SortableList';
 import { SeoEditor } from '../../components/cms/SeoEditor';
+import { MediaSelector } from '../../components/cms/MediaSelector';
 
 export default function DeveloperSettings() {
   const [isLoading, setIsLoading] = useState(true);
@@ -105,6 +106,21 @@ export default function DeveloperSettings() {
               onChange={(e) => setSettings({...settings, officeHours: e.target.value})} 
             />
           </div>
+        </div>
+      </SectionEditor>
+
+      <SectionEditor title="Branding">
+        <div className="max-w-xl">
+          <MediaSelector
+            label="Official Logo"
+            type="image"
+            value={settings.logoUrl || ''}
+            onChange={(url) => setSettings({ ...settings, logoUrl: url })}
+            placeholder="Upload or paste URL for the company logo..."
+          />
+          <p className="text-xs text-text-muted mt-2">
+            This logo will be used in the main header and footer of the public website. Recommended format: PNG or SVG with transparent background.
+          </p>
         </div>
       </SectionEditor>
 

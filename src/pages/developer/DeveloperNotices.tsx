@@ -150,7 +150,7 @@ export default function DeveloperNotices() {
               <div className="space-y-2">
                 <label className="text-sm font-semibold">Type *</label>
                 <select 
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-primary/20"
+                  className="w-full bg-surface border border-border rounded-md px-4 py-3 text-sm focus:ring-4 focus:ring-brand-primary/20"
                   value={editingItem.type || 'announcement'}
                   onChange={(e) => setEditingItem({ ...editingItem, type: e.target.value as any })}
                 >
@@ -181,7 +181,7 @@ export default function DeveloperNotices() {
               <div className="space-y-2">
                 <label className="text-sm font-semibold">Priority</label>
                 <select 
-                  className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-primary/20"
+                  className="w-full bg-surface border border-border rounded-md px-4 py-3 text-sm focus:ring-4 focus:ring-brand-primary/20"
                   value={editingItem.priority || 'medium'}
                   onChange={(e) => setEditingItem({ ...editingItem, priority: e.target.value as any })}
                 >
@@ -196,7 +196,7 @@ export default function DeveloperNotices() {
                     type="checkbox" 
                     checked={editingItem.isActive !== false} 
                     onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
-                    className="w-4 h-4 text-primary rounded"
+                    className="w-4 h-4 text-brand-primary rounded"
                   />
                   <span className="text-sm font-semibold">Active</span>
                 </label>

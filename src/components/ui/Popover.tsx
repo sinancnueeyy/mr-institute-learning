@@ -32,7 +32,7 @@ export function Popover({ trigger, content, align = 'center', className }: Popov
         <FadeIn
           duration={0.15}
           className={cn(
-            'absolute z-50 mt-2 w-64 rounded-md border border-border bg-background p-4 shadow-floating',
+            'absolute z-50 mt-2 w-64 rounded-md border border-border bg-surface p-4 shadow-floating',
             {
               'left-0': align === 'start',
               'left-1/2 -translate-x-1/2': align === 'center',

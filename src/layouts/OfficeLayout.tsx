@@ -44,11 +44,11 @@ export const OfficeLayout: React.FC = () => {
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-border fixed h-full z-20">
         <div className="p-6 border-b border-border">
           <Link to={ROUTES.OFFICE.DASHBOARD} className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center text-white group-hover:scale-105 transition-transform">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold leading-tight text-text-primary group-hover:text-indigo-600 transition-colors">
+              <h1 className="text-lg font-bold leading-tight text-text-primary group-hover:text-brand-primary transition-colors">
                 Office Portal
               </h1>
               <p className="text-[10px] uppercase tracking-wider text-text-secondary font-semibold">MR Institute</p>
@@ -67,7 +67,7 @@ export const OfficeLayout: React.FC = () => {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   isActive 
-                    ? "bg-indigo-600/10 text-indigo-600" 
+                    ? "bg-brand-primary/10 text-brand-primary" 
                     : "text-text-secondary hover:bg-surface hover:text-text-primary"
                 )}
               >
@@ -97,7 +97,7 @@ export const OfficeLayout: React.FC = () => {
       {/* Mobile Header & Overlay */}
       <div className="lg:hidden fixed top-0 w-full z-30 bg-white border-b border-border px-4 py-3 flex items-center justify-between">
         <Link to={ROUTES.OFFICE.DASHBOARD} className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
+          <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center text-white">
             <GraduationCap className="w-5 h-5" />
           </div>
           <h1 className="text-lg font-bold text-text-primary">Office Portal</h1>
@@ -129,7 +129,7 @@ export const OfficeLayout: React.FC = () => {
                     to={link.path}
                     className={cn(
                       "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                      isActive ? "bg-indigo-600/10 text-indigo-600" : "text-text-secondary"
+                      isActive ? "bg-brand-primary/10 text-brand-primary" : "text-text-secondary"
                     )}
                   >
                     {link.icon}
@@ -153,7 +153,7 @@ export const OfficeLayout: React.FC = () => {
         {/* Header / Breadcrumbs */}
         <header className="bg-white border-b border-border px-6 py-4 flex items-center justify-between sticky top-[60px] lg:top-0 z-10">
           <div className="flex items-center text-sm">
-            <Link to={ROUTES.OFFICE.DASHBOARD} className="text-text-muted hover:text-indigo-600 transition-colors">
+            <Link to={ROUTES.OFFICE.DASHBOARD} className="text-text-muted hover:text-brand-primary transition-colors">
               Office
             </Link>
             {breadcrumbs.map((crumb, index) => (
@@ -179,7 +179,7 @@ export const OfficeLayout: React.FC = () => {
         <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
           <Suspense fallback={
             <div className="h-full flex items-center justify-center">
-              <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
           }>
             <Outlet />

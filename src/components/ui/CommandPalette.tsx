@@ -83,7 +83,7 @@ export function CommandPalette() {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] px-4 bg-black/50 backdrop-blur-sm animate-fade-in" role="dialog" aria-modal="true" aria-label="Command Palette">
       <div 
-        className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden border border-border flex flex-col"
+        className="w-full max-w-2xl bg-white rounded-md shadow-md overflow-hidden border border-border flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center px-4 py-3 border-b border-border">
@@ -127,10 +127,10 @@ export function CommandPalette() {
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => setSelectedIndex(index)}
                     className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
-                      isSelected ? 'bg-primary/10 text-primary' : 'hover:bg-surface text-text-primary'
+                      isSelected ? 'bg-brand-primary/10 text-brand-primary' : 'hover:bg-surface text-text-primary'
                     }`}
                   >
-                    <div className={`mr-3 ${isSelected ? 'text-primary' : 'text-text-muted'}`}>
+                    <div className={`mr-3 ${isSelected ? 'text-brand-primary' : 'text-text-muted'}`}>
                       {item.icon ? cloneElement(item.icon as ReactElement<any>, { className: 'w-5 h-5' }) : <Search className="w-5 h-5" />}
                     </div>
                     <div className="flex-1">

@@ -30,7 +30,7 @@ export function SectionHeading({ title, subtitle, alignment = 'center', classNam
           {subtitle}
         </p>
       )}
-      <div className={cn("h-1 w-20 bg-primary mt-6 rounded-full", {
+      <div className={cn("h-1 w-20 bg-brand-primary mt-6 rounded-full", {
         'mx-auto': alignment === 'center',
         'ml-auto': alignment === 'right'
       })} />

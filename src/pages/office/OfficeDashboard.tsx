@@ -113,7 +113,7 @@ export default function OfficeDashboard() {
   if (loading) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -146,7 +146,7 @@ export default function OfficeDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Charts Section */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <div className="bg-white p-6 rounded-md border border-border shadow-sm">
             <h3 className="text-lg font-bold mb-4">Admissions Overview (Monthly)</h3>
             <DashboardChart 
               type="bar" 
@@ -156,7 +156,7 @@ export default function OfficeDashboard() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+            <div className="bg-white p-6 rounded-md border border-border shadow-sm">
               <h3 className="text-lg font-bold mb-4">Application Status</h3>
               <DashboardChart 
                 type="pie" 
@@ -166,16 +166,16 @@ export default function OfficeDashboard() {
               />
             </div>
             <div className="grid grid-rows-2 gap-4">
-              <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center justify-between">
+              <div className="bg-white p-4 rounded-md border border-border shadow-sm flex items-center justify-between">
                 <div>
                   <h4 className="text-sm font-medium text-text-secondary">Scholarship Requests</h4>
                   <p className="text-2xl font-bold mt-1">{stats.scholarshipRequests}</p>
                 </div>
-                <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-brand-primary/5 text-brand-primary rounded-full flex items-center justify-center">
                   <Award className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center justify-between">
+              <div className="bg-white p-4 rounded-md border border-border shadow-sm flex items-center justify-between">
                 <div>
                   <h4 className="text-sm font-medium text-text-secondary">Charity Requests</h4>
                   <p className="text-2xl font-bold mt-1">{stats.charityRequests}</p>

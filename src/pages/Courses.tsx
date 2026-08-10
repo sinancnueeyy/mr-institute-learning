@@ -18,13 +18,16 @@ export default function Courses() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await coursesRepository.query([{ field: 'isActive', operator: '==', value: true }]);
-      if(res.data) {
-        setCourses(res.data);
-        const uniqueCategories = Array.from(new Set(res.data.map(c => c.category).filter(Boolean)));
-        setCategories(['All Courses', ...uniqueCategories]);
+      try {
+        const res = await coursesRepository.query([{ field: 'isActive', operator: '==', value: true }]);
+        if(res.data) {
+          setCourses(res.data);
+          const uniqueCategories = Array.from(new Set(res.data.map(c => c.category).filter(Boolean)));
+          setCategories(['All Courses', ...uniqueCategories]);
+        }
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetch();
   }, []);
@@ -32,25 +35,6 @@ export default function Courses() {
   const filteredCourses = activeCategory === 'All Courses' 
     ? courses 
     : courses.filter(c => c.category === activeCategory);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <div className="bg-surface py-16 sm:py-24 lg:py-32">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="h-16 w-3/4 animate-shimmer rounded-lg bg-border/50" />
-                <div className="h-24 w-full animate-shimmer rounded-lg bg-border/30" />
-                <div className="h-12 w-1/3 animate-shimmer rounded-lg bg-border/50" />
-              </div>
-              <div className="h-96 w-full animate-shimmer rounded-2xl bg-border/30" />
-            </div>
-          </Container>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <PageTransition>
@@ -77,10 +61,10 @@ export default function Courses() {
                 <button
                   onClick={() => setActiveCategory(category)}
                   className={cn(
-                    "px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
+                    "px-5 py-2.5 rounded-md text-sm font-semibold transition-all duration-300",
                     activeCategory === category
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-white text-text-secondary border border-border hover:border-primary hover:text-primary"
+                      ? "bg-brand-primary text-text-on-primary shadow-md"
+                      : "bg-white text-text-secondary border border-border hover:border-brand-primary hover:text-brand-primary"
                   )}
                 >
                   {category}
@@ -89,7 +73,13 @@ export default function Courses() {
             ))}
           </div>
 
-          {filteredCourses.length > 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-80 rounded-md bg-border/30 animate-pulse" />
+              ))}
+            </div>
+          ) : filteredCourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredCourses.map((course, i) => (
                 <CourseCard key={course.id} course={course} delay={i * 0.1} />
@@ -97,7 +87,7 @@ export default function Courses() {
             </div>
           ) : (
             <SlideIn direction="up">
-              <div className="text-center py-20 bg-white rounded-2xl border border-border">
+              <div className="text-center py-20 bg-white rounded-md border border-border shadow-sm">
                 <h3 className="text-2xl font-bold text-text-primary mb-2">No courses found</h3>
                 <p className="text-text-secondary">We are currently updating our syllabus for this category. Please check back later.</p>
               </div>

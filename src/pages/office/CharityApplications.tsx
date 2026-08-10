@@ -164,7 +164,7 @@ export default function CharityApplications() {
         ]}
       />
 
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-md border border-border overflow-hidden">
         <DataTable 
           data={filteredApps}
           columns={columns}
@@ -191,7 +191,7 @@ export default function CharityApplications() {
               <StatusBadge status={mapStatus(selectedApp.status)} />
             </div>
 
-            <div className="bg-surface p-6 rounded-xl border border-border space-y-4">
+            <div className="bg-surface p-6 rounded-md border border-border space-y-4">
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-text-muted mb-1">Request Type</p>

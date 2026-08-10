@@ -39,9 +39,9 @@ export const InstallPrompt = () => {
   if (!deferredPrompt || isDismissed) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 z-50 animate-in slide-in-from-bottom-5">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white rounded-md shadow-md border border-gray-100 p-4 z-50 animate-in slide-in-from-bottom-5">
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+        <div className="flex-shrink-0 w-12 h-12 bg-brand-primary/10 rounded-md flex items-center justify-center">
           <img src="/pwa-192x192.png" alt="Logo" className="w-8 h-8 rounded-md" onError={(e) => {
             (e.target as HTMLImageElement).style.display = 'none';
           }} />
@@ -54,7 +54,7 @@ export const InstallPrompt = () => {
           <div className="flex items-center gap-3 mt-3">
             <button
               onClick={handleInstallClick}
-              className="flex-1 bg-primary text-white text-sm font-medium py-2 rounded-lg hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+              className="flex-1 bg-brand-primary text-white text-sm font-medium py-2 rounded-lg hover:bg-brand-primary-hover transition-colors flex items-center justify-center gap-2"
             >
               <Download size={16} />
               Install

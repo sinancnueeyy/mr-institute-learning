@@ -18,7 +18,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <div ref={ref} className={cn('w-full', className)} {...props}>
-        <div className="flex space-x-1 border-b border-border bg-background p-1">
+        <div className="flex space-x-1 border-b border-border bg-surface p-1">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -26,8 +26,8 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
               className={cn(
                 'inline-flex items-center justify-center whitespace-nowrap rounded-t-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                 activeTab === tab.id
-                  ? 'bg-surface text-primary border-b-2 border-primary'
-                  : 'text-text-muted hover:text-text-primary hover:bg-secondary'
+                  ? 'bg-surface text-brand-primary border-b-2 border-brand-primary'
+                  : 'text-text-muted hover:text-text-primary hover:bg-brand-secondary'
               )}
             >
               {tab.label}

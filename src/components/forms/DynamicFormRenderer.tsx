@@ -227,7 +227,7 @@ export function DynamicFormRenderer({ type, formId }: DynamicFormRendererProps) 
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center p-12">
-        <Loader2 className="w-8 h-8 text-primary animate-spin mb-4" />
+        <Loader2 className="w-8 h-8 text-brand-primary animate-spin mb-4" />
         <p className="text-text-secondary">Loading form...</p>
       </div>
     );
@@ -276,7 +276,7 @@ export function DynamicFormRenderer({ type, formId }: DynamicFormRendererProps) 
           stepTitles={schema.steps.map(s => s.title)} 
         />
 
-        <Card className="shadow-lg border-border">
+        <Card className="shadow-sm border-border">
           <CardContent className="p-6 sm:p-8">
             <form onSubmit={schema.steps.length === 1 || currentStep === schema.steps.length - 1 ? handleSubmit : (e) => { e.preventDefault(); handleNext(); }}>
               <div className="grid grid-cols-12 gap-6">

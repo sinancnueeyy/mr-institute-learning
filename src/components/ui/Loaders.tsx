@@ -5,7 +5,7 @@ import { Container } from './Container';
 export function PageLoader() {
   return (
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center">
-      <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+      <div className="w-12 h-12 rounded-full border-4 border-brand-primary/20 border-t-primary animate-spin" />
     </div>
   );
 }
@@ -20,7 +20,7 @@ export function SectionLoader() {
             <Skeleton className="h-24 w-full rounded-lg" />
             <Skeleton className="h-12 w-1/3 rounded-lg" />
           </div>
-          <Skeleton className="h-96 w-full rounded-2xl" />
+          <Skeleton className="h-96 w-full rounded-md" />
         </div>
       </Container>
     </div>
@@ -54,7 +54,7 @@ export function TableLoader() {
 
 export function FormLoader() {
   return (
-    <div className="space-y-6 max-w-2xl mx-auto p-6 bg-white rounded-xl border border-border shadow-sm">
+    <div className="space-y-6 max-w-2xl mx-auto p-6 bg-white rounded-md border border-border shadow-sm">
       <Skeleton className="h-8 w-1/2 mb-8" />
       {[...Array(4)].map((_, i) => (
         <div key={i} className="space-y-2">

@@ -18,7 +18,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             ref={ref}
             disabled={disabled}
             className={cn(
-              "toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-border appearance-none cursor-pointer transition-transform duration-200 ease-in-out checked:translate-x-5 checked:border-primary",
+              "toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-border appearance-none cursor-pointer transition-transform duration-200 ease-in-out checked:translate-x-5 checked:border-brand-primary",
               disabled && "cursor-not-allowed opacity-50",
               className
             )}
@@ -29,7 +29,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             htmlFor={generatedId}
             className={cn(
               "toggle-label block overflow-hidden h-6 rounded-full bg-border cursor-pointer transition-colors duration-200 ease-in-out",
-              props.checked && "bg-primary",
+              props.checked && "bg-brand-primary",
               disabled && "cursor-not-allowed opacity-50"
             )}
           ></label>

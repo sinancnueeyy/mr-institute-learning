@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: var(--background);
+  --color-background: var(--surface);
   --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-dark: var(--surface-dark);
+
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+  --color-text-on-primary: var(--text-on-primary);
+  --color-text-on-dark: var(--text-on-dark);
 
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-active: var(--primary-active);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-primary-light: var(--brand-primary-light);
 
-  --color-secondary: var(--secondary);
-  --color-secondary-hover: var(--secondary-hover);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-hover: var(--brand-secondary-hover);
+  --color-brand-secondary-light: var(--brand-secondary-light);
 
   --color-success: var(--success);
   --color-warning: var(--warning);
@@ -34,59 +37,63 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --surface: #f8fafc;
-    --border: #e2e8f0;
+    --brand-primary: #014324;
+    --brand-primary-hover: #025930;
+    --brand-primary-dark: #002d18;
+    --brand-primary-light: #F0F7F3;
     
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
+    --brand-secondary: #C99A2E;
+    --brand-secondary-hover: #dfab33;
+    --brand-secondary-light: #FBF6E8;
 
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-active: #3730a3;
-    --primary-foreground: #ffffff;
+    --surface: #FFFFFF;
+    --surface-muted: #F0F7F3;
+    --surface-elevated: #FFFFFF;
+    --surface-dark: #014324;
 
-    --secondary: #f1f5f9;
-    --secondary-hover: #e2e8f0;
-    --secondary-foreground: #0f172a;
+    --border: #E5E7EB;
+    --border-strong: #D1D5DB;
+    
+    --text-primary: #014324;
+    --text-secondary: #374151;
+    --text-muted: #6B7280;
+    --text-on-primary: #FFFFFF;
+    --text-on-dark: #FFFFFF;
 
-    --accent: #38bdf8;
-    --accent-hover: #0ea5e9;
-    --accent-foreground: #ffffff;
-
-    --success: #10b981;
-    --warning: #f59e0b;
-    --error: #ef4444;
-    --info: #3b82f6;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
   }
 
   .dark {
-    --background: #0f172a;
-    --surface: #1e293b;
-    --border: #334155;
+    --brand-primary: #028247;
+    --brand-primary-hover: #039c56;
+    --brand-primary-dark: #014324;
+    --brand-primary-light: #002d18;
     
-    --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-muted: #64748b;
+    --brand-secondary: #C99A2E;
+    --brand-secondary-hover: #dfab33;
+    --brand-secondary-light: #523f0d;
 
-    --primary: #6366f1;
-    --primary-hover: #818cf8;
-    --primary-active: #4f46e5;
-    --primary-foreground: #ffffff;
+    --surface: #0a110e;
+    --surface-muted: #111d17;
+    --surface-elevated: #182820;
+    --surface-dark: #0a110e;
 
-    --secondary: #334155;
-    --secondary-hover: #475569;
-    --secondary-foreground: #f8fafc;
-
-    --accent: #0ea5e9;
-    --accent-hover: #38bdf8;
-    --accent-foreground: #ffffff;
+    --border: #1f352a;
+    --border-strong: #2c4a3b;
+    
+    --text-primary: #F0F7F3;
+    --text-secondary: #D1D5DB;
+    --text-muted: #9CA3AF;
+    --text-on-primary: #FFFFFF;
+    --text-on-dark: #F9FAFB;
 
     --success: #059669;
-    --warning: #d97706;
-    --error: #dc2626;
-    --info: #2563eb;
+    --warning: #D97706;
+    --error: #DC2626;
+    --info: #2563EB;
   }
 
   html {
@@ -94,20 +101,25 @@
   }
 
   body {
-    @apply antialiased bg-background text-text-primary font-sans selection:bg-primary selection:text-white transition-colors duration-200;
+    @apply antialiased bg-surface text-text-primary selection:bg-brand-primary selection:text-text-on-primary transition-colors duration-200;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
   /* Typography Hierarchy */
+  h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+  }
+  
   h1 {
-    @apply text-4xl font-extrabold tracking-tight lg:text-5xl;
+    @apply text-4xl font-bold tracking-tight lg:text-5xl;
   }
   
   h2 {
-    @apply text-3xl font-semibold tracking-tight;
+    @apply text-3xl font-bold tracking-tight;
   }
   
   h3 {
-    @apply text-2xl font-semibold tracking-tight;
+    @apply text-2xl font-bold tracking-tight;
   }
   
   h4 {
@@ -145,7 +157,7 @@
 
   /* Global Focus States */
   :focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background transition-shadow duration-200;
+    @apply outline-none ring-2 ring-brand-primary ring-offset-2 ring-offset-surface transition-shadow duration-200;
   }
 
   /* Premium Utilities */

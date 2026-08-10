@@ -130,7 +130,7 @@ export default function AdmissionsManagement() {
             <Eye className="w-4 h-4" />
           </Button>
           {item.status === 'pending' && (
-            <Button variant="ghost" size="sm" onClick={() => promptStatusChange(item.id, 'under_review')} className="text-indigo-600">
+            <Button variant="ghost" size="sm" onClick={() => promptStatusChange(item.id, 'under_review')} className="text-brand-primary">
               Review
             </Button>
           )}
@@ -175,7 +175,7 @@ export default function AdmissionsManagement() {
         ]}
       />
 
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-md border border-border overflow-hidden">
         <DataTable 
           data={filteredApps}
           columns={columns}
@@ -203,7 +203,7 @@ export default function AdmissionsManagement() {
             </div>
 
             {/* Application Data */}
-            <div className="grid grid-cols-2 gap-6 bg-surface p-6 rounded-xl border border-border">
+            <div className="grid grid-cols-2 gap-6 bg-surface p-6 rounded-md border border-border">
               <div>
                 <p className="text-sm text-text-muted mb-1">Course Applied</p>
                 <p className="font-semibold text-text-primary">{selectedApp.courseId}</p>
@@ -231,7 +231,7 @@ export default function AdmissionsManagement() {
               <h3 className="font-bold text-text-primary border-b border-border pb-2">Update Status</h3>
               <div className="flex flex-wrap gap-3">
                 {selectedApp.status === 'pending' && (
-                  <Button onClick={() => promptStatusChange(selectedApp.id, 'under_review')} className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Button onClick={() => promptStatusChange(selectedApp.id, 'under_review')} className="bg-brand-primary hover:bg-brand-primary-hover text-white">
                     <Search className="w-4 h-4 mr-2" /> Start Review
                   </Button>
                 )}

@@ -11,9 +11,9 @@ export interface TestimonialCardProps {
 export function TestimonialCard({ testimonial, delay = 0 }: TestimonialCardProps) {
   return (
     <SlideIn delay={delay} duration={0.5} direction="up" className="h-full">
-      <Card className="h-full bg-surface border-border/50 hover:shadow-lg transition-shadow duration-300">
+      <Card className="h-full bg-surface border-border/50 hover:shadow-sm transition-shadow duration-300">
         <CardContent className="p-8 flex flex-col h-full relative">
-          <Quote className="absolute top-6 right-6 w-10 h-10 text-primary/10" />
+          <Quote className="absolute top-6 right-6 w-10 h-10 text-brand-primary/10" />
           
           <div className="flex-grow">
             <p className="text-text-secondary text-lg leading-relaxed italic mb-8 relative z-10">
@@ -25,7 +25,7 @@ export function TestimonialCard({ testimonial, delay = 0 }: TestimonialCardProps
             <img loading="lazy" 
               src={testimonial.avatar} 
               alt={testimonial.name} 
-              className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
+              className="w-12 h-12 rounded-full object-cover border-2 border-brand-primary/20"
             />
             <div>
               <h4 className="font-bold text-text-primary">{testimonial.name}</h4>

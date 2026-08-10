@@ -189,7 +189,7 @@ export default function EnquiryCRM() {
         ]}
       />
 
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-md border border-border overflow-hidden">
         <DataTable 
           data={filteredEnquiries}
           columns={columns}
@@ -217,7 +217,7 @@ export default function EnquiryCRM() {
               <StatusBadge status={mapStatus(selectedEnquiry.status)} />
             </div>
 
-            <div className="bg-surface p-6 rounded-xl border border-border">
+            <div className="bg-surface p-6 rounded-md border border-border">
               <div className="flex items-center justify-between mb-4">
                 <p className="font-semibold text-text-primary">Subject: {selectedEnquiry.subject}</p>
                 <p className="text-sm text-text-muted">{new Date(selectedEnquiry.createdAt).toLocaleString()}</p>
@@ -246,7 +246,7 @@ export default function EnquiryCRM() {
             <div className="space-y-4 pt-4 border-t border-border">
               <h3 className="font-bold text-text-primary">Follow-up Notes</h3>
               
-              <div className="bg-surface p-4 rounded-xl border border-border space-y-3">
+              <div className="bg-surface p-4 rounded-md border border-border space-y-3">
                 <Textarea 
                   placeholder="Type a new internal note or follow-up summary..."
                   value={followUpNote}

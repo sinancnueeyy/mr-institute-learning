@@ -28,7 +28,7 @@ export const StatCard: React.FC<StatCardProps> = ({
     <Card 
       className={cn(
         "overflow-hidden transition-all duration-300", 
-        onClick ? "cursor-pointer hover:shadow-md hover:border-indigo-200" : "",
+        onClick ? "cursor-pointer hover:shadow-md hover:border-brand-primary/20" : "",
         className
       )}
       onClick={onClick}
@@ -37,7 +37,7 @@ export const StatCard: React.FC<StatCardProps> = ({
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-medium text-text-secondary">{title}</h3>
           {icon && (
-            <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-brand-primary/5 text-brand-primary flex items-center justify-center">
               {icon}
             </div>
           )}

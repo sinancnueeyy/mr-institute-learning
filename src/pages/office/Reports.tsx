@@ -72,15 +72,15 @@ export default function Reports() {
     {
       title: 'Admissions Report',
       description: 'Monthly admission trends and status breakdown.',
-      icon: <FileText className="w-6 h-6 text-indigo-600" />,
-      bg: 'bg-indigo-50',
+      icon: <FileText className="w-6 h-6 text-brand-primary" />,
+      bg: 'bg-brand-primary/5',
       action: () => handleExport('Admissions_Report.csv')
     },
     {
       title: 'Student Directory',
       description: 'Complete list of active, graduated, and dropped students.',
-      icon: <Users className="w-6 h-6 text-blue-600" />,
-      bg: 'bg-blue-50',
+      icon: <Users className="w-6 h-6 text-brand-secondary" />,
+      bg: 'bg-brand-secondary/5',
       action: () => handleExport('Student_Directory.csv')
     },
     {
@@ -109,7 +109,7 @@ export default function Reports() {
   if (loading) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -161,9 +161,9 @@ export default function Reports() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {reportModules.map((module, index) => (
-          <div key={index} className="bg-white p-6 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+          <div key={index} className="bg-white p-6 rounded-md border border-border shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
             <div className="flex items-start gap-4 mb-4">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${module.bg}`}>
+              <div className={`w-12 h-12 rounded-md flex items-center justify-center shrink-0 ${module.bg}`}>
                 {module.icon}
               </div>
               <div>

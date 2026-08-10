@@ -23,7 +23,7 @@ export function CourseCard({ course, delay = 0 }: CourseCardProps) {
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           />
           <div className="absolute top-4 left-4">
-            <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-primary font-semibold">
+            <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-brand-primary font-semibold">
               {course.category}
             </Badge>
           </div>
@@ -38,11 +38,11 @@ export function CourseCard({ course, delay = 0 }: CourseCardProps) {
         <CardContent className="p-6 pt-0 flex-grow">
           <div className="flex items-center gap-4 text-sm text-text-secondary mb-4">
             <div className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-primary" />
+              <Clock className="w-4 h-4 text-brand-primary" />
               <span>{course.duration}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <MonitorPlay className="w-4 h-4 text-primary" />
+              <MonitorPlay className="w-4 h-4 text-brand-primary" />
               <span>{course.mode}</span>
             </div>
           </div>

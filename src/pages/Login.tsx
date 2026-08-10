@@ -40,7 +40,7 @@ export default function Login() {
       <Container className="sm:max-w-md w-full">
         <FadeIn>
           <div className="sm:mx-auto sm:w-full sm:max-w-md text-center mb-8">
-            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white mx-auto shadow-lg mb-4">
+            <div className="w-16 h-16 bg-brand-primary rounded-md flex items-center justify-center text-white mx-auto shadow-sm mb-4">
               <GraduationCap className="w-8 h-8" />
             </div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-text-primary">
@@ -51,7 +51,7 @@ export default function Login() {
             </p>
           </div>
 
-          <Card className="border-border shadow-xl">
+          <Card className="border-border shadow-md">
             <CardContent className="p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {error && (
@@ -74,7 +74,7 @@ export default function Login() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <label className="text-sm font-semibold text-text-primary">Password</label>
-                    <a href="#" className="text-xs font-medium text-primary hover:text-primary-dark">
+                    <a href="#" className="text-xs font-medium text-brand-primary hover:text-brand-primary-dark">
                       Forgot password?
                     </a>
                   </div>

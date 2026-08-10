@@ -20,8 +20,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
             'py-24 sm:py-32 lg:py-40': spacing === 'xl',
             'bg-transparent': background === 'transparent',
             'bg-surface': background === 'surface',
-            'bg-primary text-primary-foreground': background === 'primary',
-            'bg-secondary text-secondary-foreground': background === 'secondary',
+            'bg-brand-primary text-text-on-primary': background === 'primary',
+            'bg-brand-secondary text-brand-secondary-foreground': background === 'secondary',
           },
           className
         )}

@@ -4,8 +4,11 @@ import { ROUTES } from './constants';
 import { AuthProvider, ThemeProvider, SettingsProvider, NotificationProvider, LoadingProvider } from './contexts';
 import { RoleRoute } from './components/guards/RoleRoute';
 
-// Layouts
-import { PublicLayout, DeveloperLayout, OfficeLayout, AuthLayout, BlankLayout } from './layouts';
+const PublicLayout = lazy(() => import('./layouts/PublicLayout').then(m => ({ default: m.PublicLayout })));
+const DeveloperLayout = lazy(() => import('./layouts/DeveloperLayout').then(m => ({ default: m.DeveloperLayout })));
+const OfficeLayout = lazy(() => import('./layouts/OfficeLayout').then(m => ({ default: m.OfficeLayout })));
+const AuthLayout = lazy(() => import('./layouts/AuthLayout').then(m => ({ default: m.AuthLayout })));
+const BlankLayout = lazy(() => import('./layouts/BlankLayout').then(m => ({ default: m.BlankLayout })));
 
 // Lazy loaded Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -49,30 +52,34 @@ import { InstallPrompt } from './components/pwa/InstallPrompt';
 import { UpdateNotification } from './components/pwa/UpdateNotification';
 import { Suspense, useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
-import { AnalyticsService } from './services/AnalyticsService';
-import { OfflineQueue } from './services/OfflineQueue';
-import { enquiriesRepository } from './repositories/operations/enquiriesRepository';
-import { formSubmissionsRepository } from './repositories/operations/formSubmissionsRepository';
-
-// Component to handle global route changes and offline sync
 const GlobalAppEffects = () => {
   const location = useLocation();
 
   useEffect(() => {
     // Initialize Google Analytics on mount
-    AnalyticsService.initialize();
+    import('./services/AnalyticsService').then(({ AnalyticsService }) => {
+      AnalyticsService.initialize();
+    });
   }, []);
 
   useEffect(() => {
     // Track page views on route change
-    AnalyticsService.trackPageView(location.pathname + location.search);
+    import('./services/AnalyticsService').then(({ AnalyticsService }) => {
+      AnalyticsService.trackPageView(location.pathname + location.search);
+    });
   }, [location]);
 
   useEffect(() => {
     const handleOnline = () => {
-      OfflineQueue.syncWithServer({
-        enquiries: enquiriesRepository,
-        formSubmissions: formSubmissionsRepository
+      Promise.all([
+        import('./services/OfflineQueue'),
+        import('./repositories/operations/enquiriesRepository'),
+        import('./repositories/operations/formSubmissionsRepository')
+      ]).then(([{ OfflineQueue }, { enquiriesRepository }, { formSubmissionsRepository }]) => {
+        OfflineQueue.syncWithServer({
+          enquiries: enquiriesRepository,
+          formSubmissions: formSubmissionsRepository
+        });
       });
     };
     window.addEventListener('online', handleOnline);

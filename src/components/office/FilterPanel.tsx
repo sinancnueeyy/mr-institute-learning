@@ -26,7 +26,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
   searchPlaceholder = 'Search...'
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-xl border border-border shadow-sm mb-6">
+    <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-md border border-border shadow-sm mb-6">
       <div className="relative flex-1">
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-text-muted" />
         <Input

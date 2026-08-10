@@ -101,10 +101,10 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
             disabled={field.disabled}
             readOnly={field.readOnly}
             rows={4}
-            className={`w-full bg-surface border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all resize-none ${
+            className={`w-full bg-surface border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all resize-none ${
               error 
                 ? 'border-error focus:ring-error/20 focus:border-error' 
-                : 'border-border focus:ring-primary/20 focus:border-primary'
+                : 'border-border focus:ring-brand-primary/20 focus:border-brand-primary'
             }`}
           />
         );
@@ -118,10 +118,10 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
             onChange={handleChange}
             required={field.required}
             disabled={field.disabled}
-            className={`w-full bg-surface border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all appearance-none ${
+            className={`w-full bg-surface border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all appearance-none ${
               error 
                 ? 'border-error focus:ring-error/20 focus:border-error' 
-                : 'border-border focus:ring-primary/20 focus:border-primary'
+                : 'border-border focus:ring-brand-primary/20 focus:border-brand-primary'
             }`}
           >
             <option value="" disabled>{field.placeholder || 'Select an option'}</option>
@@ -143,7 +143,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
                   checked={value === opt.value}
                   onChange={handleChange}
                   disabled={field.disabled}
-                  className="w-4 h-4 text-primary border-border focus:ring-primary"
+                  className="w-4 h-4 text-brand-primary border-border focus:ring-brand-primary"
                 />
                 <span className="text-sm font-medium">{opt.label}</span>
               </label>
@@ -165,7 +165,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
                     checked={Array.isArray(value) && value.includes(opt.value)}
                     onChange={(e) => handleMultiCheckboxChange(e, opt.value)}
                     disabled={field.disabled}
-                    className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
+                    className="w-4 h-4 text-brand-primary border-border rounded focus:ring-brand-primary"
                   />
                   <span className="text-sm font-medium">{opt.label}</span>
                 </label>
@@ -184,7 +184,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
                 onChange={handleCheckboxChange}
                 disabled={field.disabled}
                 required={field.required}
-                className="w-5 h-5 text-primary border-border rounded focus:ring-primary"
+                className="w-5 h-5 text-brand-primary border-border rounded focus:ring-brand-primary"
               />
               <span className="text-sm font-medium">{field.placeholder || 'Check this box to confirm'}</span>
             </label>
@@ -201,7 +201,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
               className="sr-only peer"
               disabled={field.disabled}
             />
-            <div className="w-11 h-6 bg-border peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            <div className="w-11 h-6 bg-border peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-primary"></div>
             {field.placeholder && <span className="ml-3 text-sm font-medium">{field.placeholder}</span>}
           </label>
         );
@@ -221,8 +221,8 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
             />
             {!fileName ? (
               <div 
-                className={`w-full border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-colors ${
-                  error ? 'border-error bg-error/5' : 'border-border hover:border-primary bg-surface/50'
+                className={`w-full border-2 border-dashed rounded-md p-8 flex flex-col items-center justify-center cursor-pointer transition-colors ${
+                  error ? 'border-error bg-error/5' : 'border-border hover:border-brand-primary bg-surface/50'
                 }`}
                 onClick={() => fileInputRef.current?.click()}
               >
@@ -235,10 +235,10 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
                 </p>
               </div>
             ) : (
-              <div className="flex items-center justify-between p-4 border border-border rounded-xl bg-surface">
+              <div className="flex items-center justify-between p-4 border border-border rounded-md bg-surface">
                 <div className="flex items-center gap-3 overflow-hidden">
-                  <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center shrink-0">
-                    <FileText className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded bg-brand-primary/10 flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5 text-brand-primary" />
                   </div>
                   <span className="text-sm font-medium truncate">{fileName}</span>
                 </div>

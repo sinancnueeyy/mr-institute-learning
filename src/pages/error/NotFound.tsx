@@ -10,7 +10,7 @@ export default function NotFound() {
     <div className="min-h-screen bg-surface flex flex-col items-center justify-center py-20 px-4">
       <Container className="text-center max-w-2xl">
         <SlideIn direction="up">
-          <div className="text-primary font-black text-9xl tracking-tighter mb-4 opacity-20">404</div>
+          <div className="text-brand-primary font-black text-9xl tracking-tighter mb-4 opacity-20">404</div>
           <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">Page Not Found</h1>
           <p className="text-text-secondary text-lg md:text-xl mb-12">
             The page you are looking for doesn't exist, has been moved, or is temporarily unavailable.

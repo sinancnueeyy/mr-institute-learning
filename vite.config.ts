@@ -77,7 +77,6 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules/firebase')) return 'firebase';
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router')) return 'vendor';
-          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/recharts') || id.includes('workbox')) return 'ui';
         }
       }
     }

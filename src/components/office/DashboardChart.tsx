@@ -21,7 +21,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
   if (!data || data.length === 0) {
     return (
       <div 
-        className="w-full flex items-center justify-center bg-surface border border-border rounded-xl text-text-muted text-sm"
+        className="w-full flex items-center justify-center bg-surface border border-border rounded-md text-text-muted text-sm"
         style={{ height }}
       >
         No data available for chart

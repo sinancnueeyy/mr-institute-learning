@@ -261,6 +261,7 @@ export interface MediaAsset {
 export interface SiteSettings {
   id: string;
   siteName: string;
+  logoUrl?: string;
   contactEmail: string;
   contactPhone: string;
   address: string;

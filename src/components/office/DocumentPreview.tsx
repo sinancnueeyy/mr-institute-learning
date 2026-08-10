@@ -13,13 +13,13 @@ export function DocumentPreview({ url, title }: DocumentPreviewProps) {
   return (
     <>
       <div 
-        className="flex items-center gap-2 p-2 pr-4 bg-white border border-border rounded-lg cursor-pointer hover:border-indigo-300 transition-colors group"
+        className="flex items-center gap-2 p-2 pr-4 bg-white border border-border rounded-lg cursor-pointer hover:border-brand-primary/30 transition-colors group"
         onClick={() => setIsOpen(true)}
       >
-        <div className="w-8 h-8 rounded bg-indigo-50 flex items-center justify-center text-indigo-600">
+        <div className="w-8 h-8 rounded bg-brand-primary/5 flex items-center justify-center text-brand-primary">
           <FileText className="w-4 h-4" />
         </div>
-        <span className="text-sm font-medium text-text-primary group-hover:text-indigo-600 transition-colors">
+        <span className="text-sm font-medium text-text-primary group-hover:text-brand-primary transition-colors">
           {title}
         </span>
         <Eye className="w-4 h-4 text-text-muted ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />

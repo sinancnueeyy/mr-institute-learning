@@ -35,7 +35,7 @@ export const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
         <div
           onClick={handleBoxClick}
           className={cn(
-            'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-surface hover:bg-secondary transition-colors',
+            'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-surface hover:bg-brand-secondary transition-colors',
             error ? 'border-error' : 'border-border',
             disabled && 'cursor-not-allowed opacity-50 hover:bg-surface',
             className

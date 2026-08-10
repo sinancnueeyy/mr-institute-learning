@@ -43,7 +43,7 @@ export const WorkflowTimeline: React.FC<WorkflowTimelineProps> = ({ events, clas
               <div 
                 className={cn(
                   "absolute left-4 top-10 bottom-0 w-[2px] -ml-px",
-                  isCompleted ? "bg-primary" : "bg-border"
+                  isCompleted ? "bg-brand-primary" : "bg-border"
                 )} 
               />
             )}
@@ -52,8 +52,8 @@ export const WorkflowTimeline: React.FC<WorkflowTimelineProps> = ({ events, clas
             <div 
               className={cn(
                 "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 bg-white",
-                isCompleted ? "border-primary text-primary" : 
-                isCurrent ? "border-primary text-primary ring-4 ring-primary/10" : 
+                isCompleted ? "border-brand-primary text-brand-primary" : 
+                isCurrent ? "border-brand-primary text-brand-primary ring-4 ring-brand-primary/10" : 
                 "border-border text-text-muted"
               )}
             >

@@ -22,7 +22,7 @@ const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
   'Hold': { color: 'bg-gray-100 text-gray-600 border-gray-200', icon: <Clock className="w-3 h-3 mr-1" /> },
   
   // Enquiries
-  'Contacted': { color: 'bg-primary/10 text-primary border-primary/20', icon: <HelpCircle className="w-3 h-3 mr-1" /> },
+  'Contacted': { color: 'bg-brand-primary/10 text-brand-primary border-brand-primary/20', icon: <HelpCircle className="w-3 h-3 mr-1" /> },
   'Follow-up': { color: 'bg-warning/10 text-warning border-warning/20', icon: <Clock className="w-3 h-3 mr-1" /> },
   'Interested': { color: 'bg-info/10 text-info border-info/20', icon: <CheckCircle2 className="w-3 h-3 mr-1" /> },
   'Converted': { color: 'bg-success/10 text-success border-success/20', icon: <CheckCircle2 className="w-3 h-3 mr-1" /> },

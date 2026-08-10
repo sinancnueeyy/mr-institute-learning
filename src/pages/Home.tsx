@@ -9,7 +9,7 @@ import { Section } from '../components/ui/Section';
 import { Button } from '../components/ui/Button';
 import { SlideIn } from '../components/animations/SlideIn';
 import { PageTransition } from '../components/animations/PageTransition';
-import { ArrowRight, Check, CheckCircle } from 'lucide-react';
+import { ArrowRight, Check, CheckCircle, BookOpen, Award, Monitor } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { initialTestimonials } from '../data/initialData';
 import { PopularCourses } from '../components/growth/PopularCourses';
@@ -19,7 +19,6 @@ import { type GalleryContent, type HomepageContent } from '../types/cms';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants';
 import { useSEO } from '../hooks/useSEO';
-import * as Icons from 'lucide-react';
 
 interface HomeProps {
   draftData?: Partial<HomepageContent>;
@@ -28,7 +27,6 @@ interface HomeProps {
 export default function Home({ draftData }: HomeProps) {
   const [data, setData] = useState<Partial<HomepageContent>>(draftData || {});
   const [featuredGallery, setFeaturedGallery] = useState<GalleryContent[]>([]);
-  const [isLoading, setIsLoading] = useState(!draftData);
 
   useEffect(() => {
     if (draftData) {
@@ -37,14 +35,15 @@ export default function Home({ draftData }: HomeProps) {
     }
 
     const fetchHomeData = async () => {
-      const pageRes = await homepageRepository.getById('main');
-      if (pageRes.data) setData(pageRes.data);
+      try {
+        const pageRes = await homepageRepository.getById('main');
+        if (pageRes.data) setData(pageRes.data);
 
-
-      const galleryRes = await galleryRepository.query([{ field: 'isActive', operator: '==', value: true }], { limit: 4 });
-      if (galleryRes.data) setFeaturedGallery(galleryRes.data);
-
-      setIsLoading(false);
+        const galleryRes = await galleryRepository.query([{ field: 'isActive', operator: '==', value: true }], { limit: 4 });
+        if (galleryRes.data) setFeaturedGallery(galleryRes.data);
+      } finally {
+        // Data loaded
+      }
     };
     fetchHomeData();
   }, [draftData]);
@@ -52,34 +51,19 @@ export default function Home({ draftData }: HomeProps) {
   useSEO(data.seo);
 
   const getIcon = (name: string) => {
-    const IconComponent = (Icons as any)[name] || Check;
-    return <IconComponent className="w-6 h-6" />;
+    switch (name) {
+      case 'BookOpen': return <BookOpen className="w-6 h-6" />;
+      case 'Award': return <Award className="w-6 h-6" />;
+      case 'Monitor': return <Monitor className="w-6 h-6" />;
+      default: return <Check className="w-6 h-6" />;
+    }
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <div className="bg-surface py-16 sm:py-24 lg:py-32">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="h-16 w-3/4 animate-shimmer rounded-lg bg-border/50" />
-                <div className="h-24 w-full animate-shimmer rounded-lg bg-border/30" />
-                <div className="h-12 w-1/3 animate-shimmer rounded-lg bg-border/50" />
-              </div>
-              <div className="h-96 w-full animate-shimmer rounded-2xl bg-border/30" />
-            </div>
-          </Container>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <PageTransition>
       {/* Announcement Bar */}
       {data.announcementText && (
-        <div className="bg-primary-dark text-white py-2 text-center text-sm font-medium">
+        <div className="bg-brand-primary text-text-on-primary py-2 text-center text-sm font-medium">
           {data.announcementLink ? (
             <a href={data.announcementLink} className="hover:underline">{data.announcementText}</a>
           ) : (
@@ -110,11 +94,11 @@ export default function Home({ draftData }: HomeProps) {
               <img loading="lazy" 
                 src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&q=80" 
                 alt="Students learning" 
-                className="rounded-2xl shadow-floating object-cover aspect-[4/3] w-full"
+                className="rounded-md shadow-md object-cover aspect-[4/3] w-full"
               />
             </SlideIn>
             <SlideIn direction="left">
-              <h2 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">About MR Institute</h2>
+              <h2 className="text-sm font-bold text-brand-primary uppercase tracking-wider mb-2">About MR Institute</h2>
               <h3 className="text-3xl md:text-4xl font-extrabold text-text-primary mb-6">
                 A Legacy of Educational Excellence
               </h3>
@@ -139,7 +123,7 @@ export default function Home({ draftData }: HomeProps) {
 
       {/* Stats Section */}
       {data.stats && data.stats.length > 0 && (
-         <Section className="bg-primary text-white py-12">
+         <Section className="bg-brand-primary text-white py-12">
             <Container>
                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                  {data.stats.map((stat, i) => (
@@ -182,15 +166,13 @@ export default function Home({ draftData }: HomeProps) {
       <PopularCourses />
 
       {/* Charity Highlight */}
-      <Section className="bg-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-white/10 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-black/10 blur-3xl"></div>
+      <Section className="bg-brand-primary text-text-on-primary relative overflow-hidden">
         
         <Container className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <SlideIn direction="right">
               <h2 className="text-3xl md:text-4xl font-extrabold mb-6">Our Commitment to Society</h2>
-              <p className="text-primary-foreground/90 text-lg mb-8 leading-relaxed">
+              <p className="text-text-on-primary/90 text-lg mb-8 leading-relaxed">
                 We believe financial constraints should never be a barrier to education. MR Institute runs active scholarship programs, free education support for deserving students, and a community book bank.
               </p>
               <Button asChild variant="secondary" size="lg">
@@ -198,13 +180,13 @@ export default function Home({ draftData }: HomeProps) {
               </Button>
             </SlideIn>
             <SlideIn direction="left" className="grid grid-cols-2 gap-4">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
+              <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 text-center border border-white/20">
                 <div className="text-4xl font-bold mb-2">₹50L+</div>
-                <div className="text-sm font-medium text-primary-foreground/80">Scholarships</div>
+                <div className="text-sm font-medium text-text-on-primary/80">Scholarships</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20 mt-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 text-center border border-white/20 mt-8">
                 <div className="text-4xl font-bold mb-2">500+</div>
-                <div className="text-sm font-medium text-primary-foreground/80">Free Students</div>
+                <div className="text-sm font-medium text-text-on-primary/80">Free Students</div>
               </div>
             </SlideIn>
           </div>

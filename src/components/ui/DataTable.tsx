@@ -44,16 +44,16 @@ export function DataTable<T>({
   if (isLoading) {
     return (
       <div className="w-full space-y-3">
-        <div className="h-10 w-full animate-shimmer rounded bg-secondary" />
-        <div className="h-20 w-full animate-shimmer rounded bg-secondary" />
-        <div className="h-20 w-full animate-shimmer rounded bg-secondary" />
+        <div className="h-10 w-full animate-shimmer rounded bg-brand-secondary" />
+        <div className="h-20 w-full animate-shimmer rounded bg-brand-secondary" />
+        <div className="h-20 w-full animate-shimmer rounded bg-brand-secondary" />
       </div>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="p-8 border border-border rounded-lg bg-background">
+      <div className="p-8 border border-border rounded-lg bg-surface">
         <EmptyState title={emptyMessage} />
       </div>
     );
@@ -88,9 +88,9 @@ export function DataTable<T>({
               <TableHead className="w-12">
                 <button 
                   onClick={toggleSelectAll}
-                  className="text-text-muted hover:text-primary transition-colors"
+                  className="text-text-muted hover:text-brand-primary transition-colors"
                 >
-                  {allSelected ? <CheckSquare className="w-5 h-5 text-primary" /> : <Square className="w-5 h-5" />}
+                  {allSelected ? <CheckSquare className="w-5 h-5 text-brand-primary" /> : <Square className="w-5 h-5" />}
                 </button>
               </TableHead>
             )}
@@ -107,15 +107,15 @@ export function DataTable<T>({
             return (
               <TableRow 
                 key={id}
-                className={isSelected ? 'bg-primary/5' : ''}
+                className={isSelected ? 'bg-brand-primary/5' : ''}
               >
                 {onSelectRows && (
                   <TableCell>
                     <button 
                       onClick={() => toggleSelectRow(id)}
-                      className="text-text-muted hover:text-primary transition-colors"
+                      className="text-text-muted hover:text-brand-primary transition-colors"
                     >
-                      {isSelected ? <CheckSquare className="w-5 h-5 text-primary" /> : <Square className="w-5 h-5" />}
+                      {isSelected ? <CheckSquare className="w-5 h-5 text-brand-primary" /> : <Square className="w-5 h-5" />}
                     </button>
                   </TableCell>
                 )}

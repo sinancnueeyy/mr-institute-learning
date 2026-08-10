@@ -21,13 +21,16 @@ export default function Gallery() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await galleryRepository.query([{ field: 'isActive', operator: '==', value: true }]);
-      if(res.data) {
-        setGallery(res.data);
-        const uniqueCategories = Array.from(new Set(res.data.map(item => item.category).filter(Boolean)));
-        setCategories(['All', ...uniqueCategories]);
+      try {
+        const res = await galleryRepository.query([{ field: 'isActive', operator: '==', value: true }]);
+        if(res.data) {
+          setGallery(res.data);
+          const uniqueCategories = Array.from(new Set(res.data.map(item => item.category).filter(Boolean)));
+          setCategories(['All', ...uniqueCategories]);
+        }
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetch();
   }, []);
@@ -47,7 +50,7 @@ export default function Gallery() {
                 <div className="h-24 w-full animate-shimmer rounded-lg bg-border/30" />
                 <div className="h-12 w-1/3 animate-shimmer rounded-lg bg-border/50" />
               </div>
-              <div className="h-96 w-full animate-shimmer rounded-2xl bg-border/30" />
+              <div className="h-96 w-full animate-pulse rounded-md bg-surface-muted border border-border" />
             </div>
           </Container>
         </div>
@@ -76,10 +79,10 @@ export default function Gallery() {
                 <button
                   onClick={() => setActiveCategory(category)}
                   className={cn(
-                    "px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300",
+                    "px-6 py-2 rounded-md text-sm font-semibold transition-all duration-300",
                     activeCategory === category
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-white text-text-secondary border border-border hover:border-primary hover:text-primary"
+                      ? "bg-brand-primary text-text-on-primary shadow-md"
+                      : "bg-white text-text-secondary border border-border hover:border-brand-primary hover:text-brand-primary"
                   )}
                 >
                   {category}
@@ -96,7 +99,7 @@ export default function Gallery() {
             </div>
           ) : (
             <SlideIn direction="up">
-              <div className="text-center py-20 bg-white rounded-2xl border border-border">
+              <div className="text-center py-20 bg-white rounded-md border border-border shadow-sm">
                 <h3 className="text-2xl font-bold text-text-primary mb-2">No media found</h3>
                 <p className="text-text-secondary">We haven't uploaded any media for this category yet.</p>
               </div>

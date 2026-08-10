@@ -26,7 +26,7 @@ export function SystemHealthWidget() {
               <span className="text-text-secondary">4.2 GB / 10 GB</span>
             </div>
             <div className="w-full h-2 bg-surface rounded-full overflow-hidden">
-              <div className="w-[42%] h-full bg-primary"></div>
+              <div className="w-[42%] h-full bg-brand-primary"></div>
             </div>
           </div>
           <div>

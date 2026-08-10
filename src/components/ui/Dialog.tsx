@@ -33,7 +33,7 @@ export function Dialog({ isOpen, onClose, title, description, children, footer, 
           role="dialog"
           aria-modal="true"
           className={cn(
-            'w-full max-w-md rounded-xl bg-background p-6 shadow-modal border border-border',
+            'w-full max-w-md rounded-md bg-surface p-6 shadow-modal border border-border',
             className
           )}
         >

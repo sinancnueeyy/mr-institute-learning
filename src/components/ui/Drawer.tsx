@@ -35,7 +35,7 @@ export function Drawer({ isOpen, onClose, title, children, position = 'right', c
             role="dialog"
             aria-modal="true"
             className={cn(
-              'w-full max-w-sm h-full bg-background shadow-modal border-border flex flex-col',
+              'w-full max-w-sm h-full bg-surface shadow-modal border-border flex flex-col',
               position === 'right' ? 'border-l' : 'border-r',
               className
             )}

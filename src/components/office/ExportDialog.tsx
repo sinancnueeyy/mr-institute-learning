@@ -26,7 +26,7 @@ export function ExportDialog({ isOpen, onClose, onExportCSV, onPrint }: ExportDi
             onClose();
           }}
         >
-          <FileSpreadsheet className="w-8 h-8 text-green-600" />
+          <FileSpreadsheet className="w-8 h-8 text-success" />
           <span>Export CSV</span>
         </Button>
         <Button 
@@ -37,7 +37,7 @@ export function ExportDialog({ isOpen, onClose, onExportCSV, onPrint }: ExportDi
             onClose();
           }}
         >
-          <FileText className="w-8 h-8 text-blue-600" />
+          <FileText className="w-8 h-8 text-brand-secondary" />
           <span>Print / PDF</span>
         </Button>
       </div>

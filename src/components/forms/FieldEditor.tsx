@@ -71,7 +71,7 @@ export function FieldEditor({ field, onChange }: FieldEditorProps) {
                 id="required"
                 checked={field.required}
                 onChange={(e) => handleChange('required', e.target.checked)}
-                className="w-4 h-4 text-primary border-border rounded focus:ring-primary"
+                className="w-4 h-4 text-brand-primary border-border rounded focus:ring-brand-primary"
               />
               <label htmlFor="required" className="text-sm font-medium">Required Field</label>
             </div>
@@ -196,7 +196,7 @@ export function FieldEditor({ field, onChange }: FieldEditorProps) {
         <div>
           <label className="text-sm font-semibold mb-1 block">Field Width</label>
           <select 
-            className="w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            className="w-full bg-white border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary"
             value={field.width || 'full'}
             onChange={(e) => handleChange('width', e.target.value)}
           >

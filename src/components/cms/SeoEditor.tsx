@@ -83,7 +83,7 @@ export function SeoEditor({ seo, onChange }: SeoEditorProps) {
           <select 
             value={data.twitterCard || 'summary_large_image'} 
             onChange={e => handleChange('twitterCard', e.target.value)}
-            className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
+            className="w-full bg-surface border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 focus:ring-brand-primary/20 focus:border-brand-primary transition-all"
           >
             <option value="summary">Summary</option>
             <option value="summary_large_image">Summary Large Image</option>
@@ -97,7 +97,7 @@ export function SeoEditor({ seo, onChange }: SeoEditorProps) {
             type="checkbox" 
             checked={data.noIndex || false}
             onChange={e => handleChange('noIndex', e.target.checked)}
-            className="w-5 h-5 text-primary rounded border-border focus:ring-primary"
+            className="w-5 h-5 text-brand-primary rounded border-border focus:ring-brand-primary"
           />
           <div>
             <p className="text-sm font-bold text-text-primary">NoIndex (Hide from Search Engines)</p>

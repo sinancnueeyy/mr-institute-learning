@@ -19,33 +19,17 @@ export default function Charity() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await charityRepository.getById('main');
-      if(res.data) setData(res.data);
-      setIsLoading(false);
+      try {
+        const res = await charityRepository.getById('main');
+        if(res.data) setData(res.data);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetch();
   }, []);
 
   useSEO(data?.seo);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <div className="bg-surface py-16 sm:py-24 lg:py-32">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="h-16 w-3/4 animate-shimmer rounded-lg bg-border/50" />
-                <div className="h-24 w-full animate-shimmer rounded-lg bg-border/30" />
-                <div className="h-12 w-1/3 animate-shimmer rounded-lg bg-border/50" />
-              </div>
-              <div className="h-96 w-full animate-shimmer rounded-2xl bg-border/30" />
-            </div>
-          </Container>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <PageTransition>
@@ -57,6 +41,13 @@ export default function Charity() {
         primaryCtaLink={ROUTES.PUBLIC.CONTACT}
       />
 
+      {isLoading && (
+        <Section className="bg-surface">
+          <Container>
+            <div className="h-64 rounded-md bg-border/30 animate-pulse" />
+          </Container>
+        </Section>
+      )}
       {/* Impact Stats */}
       {data?.impactStats && data.impactStats.length > 0 && (
         <Section className="bg-white border-b border-border">
@@ -81,7 +72,7 @@ export default function Charity() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {data.schemes.map((initiative, i) => (
-                <SlideIn key={i} delay={i * 0.1} direction="up" className="bg-white p-8 rounded-2xl shadow-sm border border-border text-center group hover:border-primary transition-colors">
+                <SlideIn key={i} delay={i * 0.1} direction="up" className="bg-white p-8 rounded-md shadow-sm border border-border text-center group hover:border-brand-primary transition-colors">
                   <h3 className="text-xl font-bold mb-4">{initiative.title}</h3>
                   <div 
                     className="prose text-text-secondary leading-relaxed text-sm max-w-none text-left" 
@@ -109,12 +100,12 @@ export default function Charity() {
               {data.eligibilityCriteria && data.eligibilityCriteria.length > 0 && (
                 <SlideIn direction="right">
                   <h2 className="text-3xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                    <CheckCircle className="w-8 h-8 text-primary" /> General Eligibility
+                    <CheckCircle className="w-8 h-8 text-brand-primary" /> General Eligibility
                   </h2>
                   <ul className="space-y-4 text-lg text-text-secondary">
                     {data.eligibilityCriteria.map((crit, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <span className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                        <span className="w-2 h-2 rounded-full bg-brand-primary mt-2 shrink-0" />
                         {crit}
                       </li>
                     ))}
@@ -123,9 +114,9 @@ export default function Charity() {
               )}
 
               {data.requiredDocuments && data.requiredDocuments.length > 0 && (
-                <SlideIn direction="left" delay={0.2} className="bg-surface p-8 rounded-2xl border border-border">
+                <SlideIn direction="left" delay={0.2} className="bg-surface p-8 rounded-md border border-border">
                   <h2 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                    <FileText className="w-6 h-6 text-primary" /> Required Documents
+                    <FileText className="w-6 h-6 text-brand-primary" /> Required Documents
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {data.requiredDocuments.map((doc, i) => (
@@ -149,12 +140,12 @@ export default function Charity() {
             <SectionHeading title="Success Stories" subtitle="Hear from students whose lives were transformed." />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {data.successStories.map((story, i) => (
-                 <SlideIn key={i} delay={i * 0.1} direction="up" className="bg-white p-6 rounded-2xl shadow-sm border border-border">
+                 <SlideIn key={i} delay={i * 0.1} direction="up" className="bg-white p-6 rounded-md shadow-sm border border-border">
                     <div className="flex items-center gap-4 mb-4">
                        {story.image && <img loading="lazy" src={story.image} alt={story.name} className="w-16 h-16 rounded-full object-cover" />}
                        <div>
                           <h4 className="font-bold text-lg">{story.name}</h4>
-                          <p className="text-sm text-primary font-medium">{story.course}</p>
+                          <p className="text-sm text-brand-primary font-medium">{story.course}</p>
                        </div>
                     </div>
                     <div className="prose text-text-secondary text-sm" dangerouslySetInnerHTML={{ __html: story.story }} />
@@ -172,9 +163,9 @@ export default function Charity() {
             <SectionHeading title="Frequently Asked Questions" subtitle="Find answers to common queries about our charity schemes." />
             <div className="max-w-3xl mx-auto space-y-4">
                {data.faqs.map((faq, i) => (
-                 <div key={i} className="bg-surface p-6 rounded-xl border border-border shadow-sm">
+                 <div key={i} className="bg-surface p-6 rounded-md border border-border shadow-sm">
                    <h3 className="font-bold text-lg text-text-primary mb-2 flex items-start gap-3">
-                      <HelpCircle className="w-5 h-5 text-primary mt-1 shrink-0" />
+                      <HelpCircle className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
                       {faq.question}
                    </h3>
                    <p className="text-text-secondary pl-8">{faq.answer}</p>

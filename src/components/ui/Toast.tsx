@@ -41,7 +41,7 @@ export function Toast({ id, title, message, type = 'info', duration = 5000, onCl
 
   return (
     <SlideIn direction="left" duration={0.3} className="pointer-events-auto w-full max-w-sm">
-      <div className={cn('flex items-start rounded-lg border p-4 shadow-floating bg-background', typeStyles)}>
+      <div className={cn('flex items-start rounded-lg border p-4 shadow-floating bg-surface', typeStyles)}>
         <Icon className="h-5 w-5 shrink-0 mt-0.5" />
         <div className="ml-3 flex-1">
           <h3 className="text-sm font-medium">{title}</h3>

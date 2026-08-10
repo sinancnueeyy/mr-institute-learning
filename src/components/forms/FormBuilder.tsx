@@ -171,8 +171,8 @@ export function FormBuilder({ initialSchema, onSave, onCancel }: FormBuilderProp
                       key={field.id}
                       className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${
                         selectedField?.stepIndex === stepIndex && selectedField?.fieldIndex === fieldIndex 
-                        ? 'border-primary bg-primary/5' 
-                        : 'border-border bg-white hover:border-indigo-300'
+                        ? 'border-brand-primary bg-brand-primary/5' 
+                        : 'border-border bg-white hover:border-brand-primary/30'
                       }`}
                       onClick={() => setSelectedField({ stepIndex, fieldIndex })}
                     >
@@ -241,7 +241,7 @@ export function FormBuilder({ initialSchema, onSave, onCancel }: FormBuilderProp
       <Card className="w-[400px] flex-shrink-0 sticky top-0 h-full max-h-[800px] overflow-hidden flex flex-col">
         <CardHeader className="border-b border-border bg-surface/50 p-4">
           <h3 className="font-bold flex items-center gap-2">
-            <Settings className="w-5 h-5 text-indigo-600" />
+            <Settings className="w-5 h-5 text-brand-primary" />
             {selectedField ? 'Edit Field' : 'Form Settings'}
           </h3>
         </CardHeader>

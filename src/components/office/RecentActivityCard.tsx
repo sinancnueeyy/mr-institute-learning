@@ -22,11 +22,11 @@ export const RecentActivityCard: React.FC<RecentActivityCardProps> = ({
     <Card className="h-full flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-lg font-bold flex items-center gap-2">
-          <Bell className="w-5 h-5 text-indigo-600" />
+          <Bell className="w-5 h-5 text-brand-primary" />
           {title}
         </CardTitle>
         {viewAllLink && (
-          <Button variant="ghost" size="sm" asChild className="text-indigo-600">
+          <Button variant="ghost" size="sm" asChild className="text-brand-primary">
             <Link to={viewAllLink}>
               View All <ArrowRight className="w-4 h-4 ml-1" />
             </Link>

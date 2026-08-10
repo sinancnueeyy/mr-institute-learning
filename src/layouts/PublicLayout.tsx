@@ -3,10 +3,12 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '../constants';
 import { Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
-import { Menu, X, GraduationCap, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { cn } from '../utils';
 import { FadeIn } from '../components/animations/FadeIn';
 import { FloatingEnquiryButton } from '../components/growth/FloatingEnquiryButton';
+import { settingsRepository } from '../repositories/cms';
+import { type SiteSettings } from '../types/cms';
 
 const NAV_LINKS = [
   { label: 'Home', path: ROUTES.PUBLIC.HOME },
@@ -21,7 +23,20 @@ const NAV_LINKS = [
 export const PublicLayout: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await settingsRepository.getById('global');
+        if (res.data) setSettings(res.data);
+      } catch (err) {
+        // Ignore settings fetch errors gracefully
+      }
+    };
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,9 +53,9 @@ export const PublicLayout: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-surface">
       {/* Top Info Bar (Optional) */}
-      <div className="bg-primary text-primary-foreground text-sm py-2 hidden md:block">
+      <div className="bg-brand-primary text-text-on-primary text-sm py-2 hidden md:block">
         <Container>
           <div className="flex justify-between items-center">
             <div className="flex gap-6">
@@ -58,38 +73,34 @@ export const PublicLayout: React.FC = () => {
       <header 
         className={cn(
           "sticky top-0 z-50 transition-all duration-300 border-b",
-          isScrolled ? "bg-white/90 backdrop-blur-md border-border shadow-sm py-3" : "bg-white border-transparent py-5"
+          isScrolled ? "bg-surface/95 backdrop-blur-md border-border shadow-sm py-4" : "bg-surface border-transparent py-6"
         )}
       >
         <Container>
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to={ROUTES.PUBLIC.HOME} className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                <GraduationCap className="w-6 h-6" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold leading-tight text-text-primary group-hover:text-primary transition-colors">
-                  MR Institute
-                </h1>
-                <p className="text-[10px] uppercase tracking-wider text-text-secondary font-semibold">of Learning</p>
-              </div>
+            <Link to={ROUTES.PUBLIC.HOME} className="flex items-center gap-3 group">
+              <img 
+                src={settings?.logoUrl || '/logo.png'} 
+                alt="MR Institute Logo" 
+                className="h-12 w-auto object-contain" 
+              />
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-8">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   className={cn(
-                    "text-sm font-semibold transition-colors hover:text-primary relative group",
-                    location.pathname === link.path ? "text-primary" : "text-text-secondary"
+                    "text-[15px] font-medium transition-colors relative group py-2",
+                    location.pathname === link.path ? "text-brand-primary" : "text-text-secondary hover:text-brand-primary"
                   )}
                 >
                   {link.label}
                   <span className={cn(
-                    "absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full transform origin-left transition-transform duration-300",
+                    "absolute -bottom-1 left-0 w-full h-[2px] bg-brand-secondary transform origin-left transition-transform duration-300",
                     location.pathname === link.path ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                   )} />
                 </Link>
@@ -97,18 +108,15 @@ export const PublicLayout: React.FC = () => {
             </nav>
 
             {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-4">
-              <Button variant="ghost" asChild>
-                <Link to={ROUTES.AUTH.LOGIN}>Staff Login</Link>
-              </Button>
-              <Button asChild>
+            <div className="hidden lg:flex items-center gap-4">
+              <Button asChild size="lg" className="rounded-md px-8">
                 <Link to={ROUTES.PUBLIC.CONTACT}>Apply Now</Link>
               </Button>
             </div>
 
             {/* Mobile Menu Toggle */}
             <button 
-              className="md:hidden p-2 text-text-primary hover:bg-surface rounded-lg transition-colors"
+              className="lg:hidden p-2 text-text-primary hover:bg-surface rounded-lg transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
             >
@@ -120,7 +128,7 @@ export const PublicLayout: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <FadeIn duration={0.2} className="md:hidden fixed inset-0 top-[73px] z-40 bg-white border-t border-border flex flex-col h-[calc(100vh-73px)] overflow-y-auto">
+        <FadeIn duration={0.2} className="md:hidden fixed inset-0 top-[73px] z-40 bg-surface border-t border-border flex flex-col h-[calc(100vh-73px)] overflow-y-auto">
           <nav className="flex flex-col p-6 gap-2">
             {NAV_LINKS.map((link) => (
               <Link
@@ -128,7 +136,7 @@ export const PublicLayout: React.FC = () => {
                 to={link.path}
                 className={cn(
                   "px-4 py-3 rounded-lg text-lg font-semibold transition-colors",
-                  location.pathname === link.path ? "bg-primary/10 text-primary" : "text-text-primary hover:bg-surface"
+                  location.pathname === link.path ? "bg-brand-primary/10 text-brand-primary" : "text-text-primary hover:bg-surface"
                 )}
               >
                 {link.label}
@@ -139,9 +147,6 @@ export const PublicLayout: React.FC = () => {
             <Button size="lg" className="w-full" asChild>
               <Link to={ROUTES.PUBLIC.CONTACT}>Apply Now</Link>
             </Button>
-            <Button size="lg" variant="outline" className="w-full" asChild>
-              <Link to={ROUTES.AUTH.LOGIN}>Staff Login</Link>
-            </Button>
           </div>
         </FadeIn>
       )}
@@ -150,7 +155,7 @@ export const PublicLayout: React.FC = () => {
       <main className="flex-1 flex flex-col">
         <Suspense fallback={
           <div className="flex-1 flex items-center justify-center p-8">
-            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin"></div>
           </div>
         }>
           <Outlet />
@@ -158,18 +163,16 @@ export const PublicLayout: React.FC = () => {
       </main>
 
       {/* Premium Footer */}
-      <footer className="bg-surface border-t border-border pt-16 pb-8">
+      <footer className="dark bg-surface text-text-primary border-t border-border pt-16 pb-8">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-1 md:col-span-2 lg:col-span-1">
-              <Link to={ROUTES.PUBLIC.HOME} className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold leading-tight text-text-primary">MR Institute</h2>
-                  <p className="text-[9px] uppercase tracking-wider text-text-secondary font-semibold">of Learning</p>
-                </div>
+              <Link to={ROUTES.PUBLIC.HOME} className="flex items-center gap-3 mb-6 group">
+                <img 
+                  src={settings?.logoUrl || '/logo.png'} 
+                  alt="MR Institute Logo" 
+                  className="h-10 w-auto object-contain" 
+                />
               </Link>
               <p className="text-text-secondary text-sm leading-relaxed mb-6 max-w-xs">
                 Empowering students with quality education, modern facilities, and expert guidance to achieve their academic and career goals.
@@ -177,38 +180,38 @@ export const PublicLayout: React.FC = () => {
             </div>
             
             <div>
-              <h3 className="font-bold text-text-primary mb-6">Quick Links</h3>
+              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Quick Links</h3>
               <ul className="space-y-4">
-                <li><Link to={ROUTES.PUBLIC.ABOUT} className="text-sm text-text-secondary hover:text-primary transition-colors">About Us</Link></li>
-                <li><Link to={ROUTES.PUBLIC.COURSES} className="text-sm text-text-secondary hover:text-primary transition-colors">Our Courses</Link></li>
-                <li><Link to={ROUTES.PUBLIC.CHARITY} className="text-sm text-text-secondary hover:text-primary transition-colors">Charity & Scholarships</Link></li>
-                <li><Link to={ROUTES.PUBLIC.GALLERY} className="text-sm text-text-secondary hover:text-primary transition-colors">Campus Gallery</Link></li>
+                <li><Link to={ROUTES.PUBLIC.ABOUT} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">About Us</Link></li>
+                <li><Link to={ROUTES.PUBLIC.COURSES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Our Courses</Link></li>
+                <li><Link to={ROUTES.PUBLIC.CHARITY} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Charity & Scholarships</Link></li>
+                <li><Link to={ROUTES.PUBLIC.GALLERY} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Campus Gallery</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold text-text-primary mb-6">Services</h3>
+              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Services</h3>
               <ul className="space-y-4">
-                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm text-text-secondary hover:text-primary transition-colors">Academic Tuition</Link></li>
-                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm text-text-secondary hover:text-primary transition-colors">Career Guidance</Link></li>
-                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm text-text-secondary hover:text-primary transition-colors">Direct Examinations</Link></li>
-                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm text-text-secondary hover:text-primary transition-colors">Skill Development</Link></li>
+                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Academic Tuition</Link></li>
+                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Career Guidance</Link></li>
+                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Direct Examinations</Link></li>
+                <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Skill Development</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold text-text-primary mb-6">Contact Us</h3>
+              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Contact Us</h3>
               <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <li className="flex items-start gap-3 group">
+                  <MapPin className="w-5 h-5 text-brand-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                   <span className="text-sm text-text-secondary">123 Education Hub, Main Street, City Name, State 12345</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-primary shrink-0" />
+                <li className="flex items-center gap-3 group">
+                  <Phone className="w-5 h-5 text-brand-primary shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="text-sm text-text-secondary">+91 98765 43210</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-primary shrink-0" />
+                <li className="flex items-center gap-3 group">
+                  <Mail className="w-5 h-5 text-brand-primary shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="text-sm text-text-secondary">info@mrinstitute.edu</span>
                 </li>
               </ul>
@@ -216,12 +219,12 @@ export const PublicLayout: React.FC = () => {
           </div>
           
           <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-text-muted font-medium">
               © {new Date().getFullYear()} MR Institute of Learning. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <Link to="#" className="text-sm text-text-muted hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link to="#" className="text-sm text-text-muted hover:text-primary transition-colors">Terms of Service</Link>
+            <div className="flex items-center gap-6">
+              <Link to="#" className="text-sm font-medium text-text-muted hover:text-brand-primary transition-colors">Privacy Policy</Link>
+              <Link to="#" className="text-sm font-medium text-text-muted hover:text-brand-primary transition-colors">Terms of Service</Link>
             </div>
           </div>
         </Container>

@@ -1,7 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, type User as FirebaseUser } from 'firebase/auth';
-import { auth } from '../firebase/auth';
-import { userRepository } from '../repositories';
 import type { User } from '../types';
 
 interface AuthContextType {
@@ -23,25 +20,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
-      if (firebaseUser) {
-        // Fetch custom user details (role, etc.) from Firestore
-        const { data } = await userRepository.getById(firebaseUser.uid);
-        if (data) {
-          setUser(data);
-        } else {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
+    let unsubscribe = () => {};
+    let isMounted = true;
 
-    return () => unsubscribe();
+    const initAuth = async () => {
+      const { onAuthStateChanged } = await import('firebase/auth');
+      const { auth } = await import('../firebase/auth');
+      const { userRepository } = await import('../repositories');
+
+      if (!isMounted) return;
+
+      unsubscribe = onAuthStateChanged(auth, async (firebaseUser: any) => {
+        if (firebaseUser) {
+          // Fetch custom user details (role, etc.) from Firestore
+          const { data } = await userRepository.getById(firebaseUser.uid);
+          if (isMounted) {
+            setUser(data || null);
+            setLoading(false);
+          }
+        } else {
+          if (isMounted) {
+            setUser(null);
+            setLoading(false);
+          }
+        }
+      });
+    };
+
+    // Use a small delay to yield to the main thread for React to finish initial paint
+    setTimeout(initAuth, 10);
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
 
   const logout = async () => {
+    const { auth } = await import('../firebase/auth');
     await auth.signOut();
   };
 

@@ -62,7 +62,7 @@ export default function StudentDirectory() {
       header: 'Student Name',
       cell: (item: Student) => (
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold shrink-0">
+          <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-brand-primary-hover font-bold shrink-0">
             {item.name.charAt(0)}
           </div>
           <div>
@@ -133,7 +133,7 @@ export default function StudentDirectory() {
         ]}
       />
 
-      <div className="bg-white rounded-xl border border-border overflow-hidden">
+      <div className="bg-white rounded-md border border-border overflow-hidden">
         <DataTable 
           data={filteredStudents}
           columns={columns}
@@ -151,7 +151,7 @@ export default function StudentDirectory() {
         {selectedStudent && (
           <div className="space-y-8">
             <div className="flex items-center gap-4 border-b border-border pb-6">
-              <div className="w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-2xl shrink-0">
+              <div className="w-16 h-16 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold text-2xl shrink-0">
                 {selectedStudent.name.charAt(0).toUpperCase()}
               </div>
               <div>
@@ -179,8 +179,8 @@ export default function StudentDirectory() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {selectedStudent.courseIds.map((courseId: string) => (
                       <div key={courseId} className="flex items-center gap-3 p-3 bg-white border border-border rounded-lg">
-                        <div className="w-10 h-10 rounded bg-indigo-50 flex items-center justify-center shrink-0">
-                          <GraduationCap className="w-5 h-5 text-indigo-600" />
+                        <div className="w-10 h-10 rounded bg-brand-primary/5 flex items-center justify-center shrink-0">
+                          <GraduationCap className="w-5 h-5 text-brand-primary" />
                         </div>
                         <div>
                           <p className="font-semibold text-text-primary text-sm truncate">{courseId}</p>

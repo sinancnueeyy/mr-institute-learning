@@ -210,7 +210,7 @@ export default function DeveloperHomepage() {
 
         {/* Preview Side */}
         {showPreview && (
-          <div className="border border-border rounded-xl overflow-hidden bg-surface flex flex-col shadow-inner min-h-[600px]">
+          <div className="border border-border rounded-md overflow-hidden bg-surface flex flex-col shadow-inner min-h-[600px]">
             <div className="bg-surface border-b border-border p-2 flex justify-center gap-4 text-xs font-semibold text-text-muted">
               <span>Previewing Live Homepage</span>
               <span>Note: Dynamic references (Courses/Gallery) will load from production.</span>

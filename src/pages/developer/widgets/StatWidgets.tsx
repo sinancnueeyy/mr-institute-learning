@@ -2,7 +2,7 @@ import { Card, CardContent } from '../../../components/ui/Card';
 import { BookOpen, Briefcase, Image as ImageIcon, FileText } from 'lucide-react';
 
 const STATS = [
-  { label: 'Total Courses', value: '24', icon: <BookOpen className="w-5 h-5 text-primary" />, change: '+3 this month' },
+  { label: 'Total Courses', value: '24', icon: <BookOpen className="w-5 h-5 text-brand-primary" />, change: '+3 this month' },
   { label: 'Services', value: '8', icon: <Briefcase className="w-5 h-5 text-success" />, change: 'Active' },
   { label: 'Gallery Items', value: '142', icon: <ImageIcon className="w-5 h-5 text-warning" />, change: '+12 this week' },
   { label: 'Forms & Applications', value: '856', icon: <FileText className="w-5 h-5 text-info" />, change: '+124 this week' },

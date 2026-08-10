@@ -20,10 +20,15 @@ export default function CourseDetails() {
   useEffect(() => {
     const fetch = async () => {
       if(courseId) {
-        const res = await coursesRepository.getById(courseId);
-        if(res.data) setCourse(res.data);
+        try {
+          const res = await coursesRepository.getById(courseId);
+          if(res.data) setCourse(res.data);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetch();
   }, [courseId]);
@@ -93,7 +98,7 @@ export default function CourseDetails() {
                   <h2 className="text-2xl font-bold text-text-primary mb-6">Key Highlights</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {course.highlights.map((highlight, index) => (
-                      <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-border">
+                      <div key={index} className="flex items-center gap-3 bg-white p-4 rounded-md shadow-sm border border-border">
                         <CheckCircle className="w-5 h-5 text-success shrink-0" />
                         <span className="font-semibold text-text-primary">{highlight}</span>
                       </div>
@@ -116,9 +121,9 @@ export default function CourseDetails() {
                   </div>
                   <div className="space-y-4">
                     {course.syllabus.map((module, i) => (
-                      <div key={i} className="bg-white p-6 rounded-xl border border-border shadow-sm flex justify-between items-center group cursor-pointer hover:border-primary transition-colors">
+                      <div key={i} className="bg-white p-6 rounded-md border border-border shadow-sm flex justify-between items-center group cursor-pointer hover:border-brand-primary transition-colors">
                         <span className="font-bold text-lg text-text-primary">{module}</span>
-                        <ArrowRight className="text-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 transform duration-300" />
+                        <ArrowRight className="text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 transform duration-300" />
                       </div>
                     ))}
                   </div>
@@ -130,9 +135,9 @@ export default function CourseDetails() {
                   <h2 className="text-2xl font-bold text-text-primary mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-4">
                     {course.faqs.map((faq, index) => (
-                      <div key={index} className="bg-white p-6 rounded-xl border border-border shadow-sm">
+                      <div key={index} className="bg-white p-6 rounded-md border border-border shadow-sm">
                         <h3 className="font-bold text-lg text-text-primary mb-2 flex items-start gap-3">
-                           <HelpCircle className="w-5 h-5 text-primary mt-1 shrink-0" />
+                           <HelpCircle className="w-5 h-5 text-brand-primary mt-1 shrink-0" />
                            {faq.question}
                         </h3>
                         <p className="text-text-secondary pl-8">{faq.answer}</p>
@@ -146,13 +151,13 @@ export default function CourseDetails() {
             {/* Sticky Sidebar (Right) */}
             <div className="lg:col-span-4">
               <SlideIn direction="left" delay={0.3} className="sticky top-24">
-                <div className="bg-white rounded-2xl shadow-floating p-8 border border-border">
+                <div className="bg-white rounded-md shadow-md p-8 border border-border">
                   <h3 className="text-2xl font-bold text-text-primary mb-6">Enrollment Details</h3>
                   
                   <div className="space-y-6 mb-8">
                     {course.admissionDates && (
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
                           <Calendar className="w-5 h-5" />
                         </div>
                         <div>
@@ -164,7 +169,7 @@ export default function CourseDetails() {
                     
                     {course.batchSchedule && (
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
                           <Clock className="w-5 h-5" />
                         </div>
                         <div>
@@ -176,7 +181,7 @@ export default function CourseDetails() {
 
                     {course.eligibility && (
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
                           <Users className="w-5 h-5" />
                         </div>
                         <div>
@@ -188,7 +193,7 @@ export default function CourseDetails() {
 
                     {course.fees && (
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <div className="w-10 h-10 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
                           <CreditCard className="w-5 h-5" />
                         </div>
                         <div>
@@ -205,7 +210,7 @@ export default function CourseDetails() {
                     Enquire Now
                   </Button>
                   <p className="text-center text-sm text-text-muted">
-                    Need help? <a href="#enquiry-form" className="text-primary font-semibold hover:underline">Contact an Advisor</a>
+                    Need help? <a href="#enquiry-form" className="text-brand-primary font-semibold hover:underline">Contact an Advisor</a>
                   </p>
                 </div>
               </SlideIn>

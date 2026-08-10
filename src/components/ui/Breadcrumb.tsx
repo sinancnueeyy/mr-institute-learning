@@ -28,7 +28,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                 ) : (
                   <Link
                     to={item.href || '#'}
-                    className="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                    className="text-sm font-medium text-text-muted hover:text-brand-primary transition-colors"
                   >
                     {item.label}
                   </Link>

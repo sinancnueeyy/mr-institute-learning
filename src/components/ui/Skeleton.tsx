@@ -7,7 +7,7 @@ export function Skeleton({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('animate-shimmer rounded-md bg-secondary', className)}
+      className={cn('animate-shimmer rounded-md bg-brand-secondary', className)}
       {...props}
     />
   );

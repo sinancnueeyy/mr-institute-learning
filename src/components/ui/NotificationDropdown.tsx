@@ -68,7 +68,7 @@ export function NotificationDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-text-secondary hover:text-primary hover:bg-surface rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        className="relative p-2 text-text-secondary hover:text-brand-primary hover:bg-surface rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
         aria-label={`Notifications (${unreadCount} unread)`}
         aria-haspopup="true"
         aria-expanded={isOpen}
@@ -81,7 +81,7 @@ export function NotificationDropdown() {
 
       {isOpen && (
         <div 
-          className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-border overflow-hidden z-50 animate-fade-in origin-top-right"
+          className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-md shadow-md border border-border overflow-hidden z-50 animate-fade-in origin-top-right"
           role="menu"
           aria-orientation="vertical"
           aria-label="Notifications"
@@ -99,7 +99,7 @@ export function NotificationDropdown() {
               <button 
                 onClick={markAllAsRead}
                 title="Mark all as read"
-                className="p-1 text-text-muted hover:text-primary transition-colors rounded"
+                className="p-1 text-text-muted hover:text-brand-primary transition-colors rounded"
               >
                 <Check className="w-4 h-4" />
               </button>
@@ -124,7 +124,7 @@ export function NotificationDropdown() {
                 {notifications.map(notification => (
                   <div 
                     key={notification.id} 
-                    className={`p-4 transition-colors hover:bg-surface cursor-pointer ${notification.isRead ? 'opacity-70' : 'bg-primary/5'}`}
+                    className={`p-4 transition-colors hover:bg-surface cursor-pointer ${notification.isRead ? 'opacity-70' : 'bg-brand-primary/5'}`}
                     onClick={() => markAsRead(notification.id)}
                     role="menuitem"
                     tabIndex={0}
@@ -135,7 +135,7 @@ export function NotificationDropdown() {
                         {notification.title}
                       </h4>
                       {!notification.isRead && (
-                        <span className="w-2 h-2 bg-primary rounded-full mt-1.5 shrink-0" />
+                        <span className="w-2 h-2 bg-brand-primary rounded-full mt-1.5 shrink-0" />
                       )}
                     </div>
                     <p className="text-sm text-text-secondary mb-2 line-clamp-2">
@@ -148,7 +148,7 @@ export function NotificationDropdown() {
                       {notification.link && (
                         <Link 
                           to={notification.link}
-                          className="text-xs text-primary hover:underline flex items-center gap-1"
+                          className="text-xs text-brand-primary hover:underline flex items-center gap-1"
                           onClick={(e) => e.stopPropagation()}
                         >
                           View Details <ExternalLink className="w-3 h-3" />
@@ -164,7 +164,7 @@ export function NotificationDropdown() {
           <div className="p-2 border-t border-border bg-surface/50 text-center">
             <Link 
               to="/office/notifications" 
-              className="text-sm font-medium text-primary hover:underline"
+              className="text-sm font-medium text-brand-primary hover:underline"
               onClick={() => setIsOpen(false)}
             >
               View all notifications

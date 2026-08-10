@@ -157,7 +157,7 @@ export default function DeveloperCourses() {
                   type="checkbox" 
                   checked={editingItem.isActive !== false} 
                   onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
-                  className="w-4 h-4 text-primary rounded"
+                  className="w-4 h-4 text-brand-primary rounded"
                 />
                 <span className="text-sm font-semibold">Active (Visible to public)</span>
               </label>

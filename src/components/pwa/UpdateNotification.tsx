@@ -18,7 +18,7 @@ export const UpdateNotification = () => {
   if (!needRefresh) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-96 bg-gray-900 text-white rounded-xl shadow-2xl p-4 z-50 animate-in slide-in-from-bottom-5">
+    <div className="fixed bottom-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-96 bg-gray-900 text-white rounded-md shadow-md p-4 z-50 animate-in slide-in-from-bottom-5">
       <div className="flex items-center gap-3">
         <div className="flex-1">
           <p className="text-sm font-medium">New version available!</p>
@@ -26,7 +26,7 @@ export const UpdateNotification = () => {
         </div>
         <button
           onClick={() => updateServiceWorker(true)}
-          className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+          className="bg-brand-primary hover:bg-brand-primary-hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
         >
           <RefreshCw size={16} />
           Refresh

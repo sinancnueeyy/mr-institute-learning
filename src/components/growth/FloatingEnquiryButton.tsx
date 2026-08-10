@@ -10,7 +10,7 @@ export const FloatingEnquiryButton = () => {
         href="https://wa.me/1234567890" // Placeholder number
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-colors animate-in slide-in-from-bottom-2 fade-in duration-500"
+        className="w-12 h-12 bg-success text-white rounded-full flex items-center justify-center shadow-sm hover:bg-success transition-colors animate-in slide-in-from-bottom-2 fade-in duration-500"
         aria-label="Chat on WhatsApp"
       >
         <MessageCircle size={24} />
@@ -19,7 +19,7 @@ export const FloatingEnquiryButton = () => {
       {/* Quick Enquiry Button */}
       <Link
         to={ROUTES.PUBLIC.CONTACT}
-        className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary-dark transition-colors animate-in slide-in-from-bottom-2 fade-in duration-700"
+        className="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-sm hover:bg-brand-primary-hover transition-colors animate-in slide-in-from-bottom-2 fade-in duration-700"
         aria-label="Enquire Now"
       >
         <FileText size={24} />
