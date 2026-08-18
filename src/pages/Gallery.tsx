@@ -39,25 +39,6 @@ export default function Gallery() {
     ? gallery 
     : gallery.filter(item => item.category === activeCategory);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen">
-        <div className="bg-surface py-16 sm:py-24 lg:py-32">
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="h-16 w-3/4 animate-shimmer rounded-lg bg-border/50" />
-                <div className="h-24 w-full animate-shimmer rounded-lg bg-border/30" />
-                <div className="h-12 w-1/3 animate-shimmer rounded-lg bg-border/50" />
-              </div>
-              <div className="h-96 w-full animate-pulse rounded-md bg-surface-muted border border-border" />
-            </div>
-          </Container>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <PageTransition>
       <HeroSection
@@ -73,37 +54,47 @@ export default function Gallery() {
             subtitle="Filter by category to view our state-of-the-art facilities and memorable events."
           />
           
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((category, index) => (
-              <SlideIn key={category} delay={index * 0.05} direction="up">
-                <button
-                  onClick={() => setActiveCategory(category)}
-                  className={cn(
-                    "px-6 py-2 rounded-md text-sm font-semibold transition-all duration-300",
-                    activeCategory === category
-                      ? "bg-brand-primary text-text-on-primary shadow-md"
-                      : "bg-white text-text-secondary border border-border hover:border-brand-primary hover:text-brand-primary"
-                  )}
-                >
-                  {category}
-                </button>
-              </SlideIn>
-            ))}
-          </div>
-
-          {filteredGallery.length > 0 ? (
+          {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredGallery.map((item, i) => (
-                <GalleryCard key={item.id} item={item} delay={i * 0.1} />
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="h-64 w-full animate-pulse rounded-md bg-surface-muted border border-border" />
               ))}
             </div>
           ) : (
-            <SlideIn direction="up">
-              <div className="text-center py-20 bg-white rounded-md border border-border shadow-sm">
-                <h3 className="text-2xl font-bold text-text-primary mb-2">No media found</h3>
-                <p className="text-text-secondary">We haven't uploaded any media for this category yet.</p>
+            <>
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                {categories.map((category, index) => (
+                  <SlideIn key={category} delay={index * 0.05} direction="up">
+                    <button
+                      onClick={() => setActiveCategory(category)}
+                      className={cn(
+                        "px-6 py-2 rounded-md text-sm font-semibold transition-all duration-300",
+                        activeCategory === category
+                          ? "bg-brand-primary text-text-on-primary shadow-md"
+                          : "bg-white text-text-secondary border border-border hover:border-brand-primary hover:text-brand-primary"
+                      )}
+                    >
+                      {category}
+                    </button>
+                  </SlideIn>
+                ))}
               </div>
-            </SlideIn>
+
+              {filteredGallery.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredGallery.map((item, i) => (
+                    <GalleryCard key={item.id} item={item} delay={i * 0.1} />
+                  ))}
+                </div>
+              ) : (
+                <SlideIn direction="up">
+                  <div className="text-center py-20 bg-white rounded-md border border-border shadow-sm">
+                    <h3 className="text-2xl font-bold text-text-primary mb-2">No media found</h3>
+                    <p className="text-text-secondary">We haven't uploaded any media for this category yet.</p>
+                  </div>
+                </SlideIn>
+              )}
+            </>
           )}
         </Container>
       </Section>

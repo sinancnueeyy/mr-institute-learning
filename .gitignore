@@ -28,6 +28,10 @@ dist-ssr
 .env.*
 !.env.example
 
+# Service Account Keys
+*service-account*.json
+firebase-adminsdk-*.json
+
 # Deployment and Hosting
 .firebase/
 .vercel/
