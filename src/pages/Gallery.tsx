@@ -16,6 +16,7 @@ export default function Gallery() {
   const [categories, setCategories] = useState<string[]>(['All']);
   const [activeCategory, setActiveCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   useSEO({ title: 'Gallery - MR Institute', description: '', keywords: '' });
 
@@ -38,6 +39,17 @@ export default function Gallery() {
   const filteredGallery = activeCategory === 'All' 
     ? gallery 
     : gallery.filter(item => item.category === activeCategory);
+
+  const visibleGallery = filteredGallery.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 12);
+  };
+
+  // Reset visible count when category changes
+  useEffect(() => {
+    setVisibleCount(12);
+  }, [activeCategory]);
 
   return (
     <PageTransition>
@@ -80,10 +92,10 @@ export default function Gallery() {
                 ))}
               </div>
 
-              {filteredGallery.length > 0 ? (
+              {visibleGallery.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredGallery.map((item, i) => (
-                    <GalleryCard key={item.id} item={item} delay={i * 0.1} />
+                  {visibleGallery.map((item, i) => (
+                    <GalleryCard key={item.id} item={item} delay={(i % 12) * 0.1} />
                   ))}
                 </div>
               ) : (
@@ -93,6 +105,17 @@ export default function Gallery() {
                     <p className="text-text-secondary">We haven't uploaded any media for this category yet.</p>
                   </div>
                 </SlideIn>
+              )}
+              
+              {visibleCount < filteredGallery.length && (
+                <div className="mt-12 text-center">
+                  <button 
+                    onClick={handleLoadMore}
+                    className="px-8 py-3 bg-brand-primary text-text-on-primary font-semibold rounded-md hover:bg-brand-secondary transition-colors shadow-sm"
+                  >
+                    Load More
+                  </button>
+                </div>
               )}
             </>
           )}

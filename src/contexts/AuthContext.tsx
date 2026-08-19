@@ -24,27 +24,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     let isMounted = true;
 
     const initAuth = async () => {
-      const { onAuthStateChanged } = await import('firebase/auth');
-      const { auth } = await import('../firebase/auth');
-      const { userRepository } = await import('../repositories');
+      try {
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const { auth } = await import('../firebase/auth');
+        const { userRepository } = await import('../repositories');
 
-      if (!isMounted) return;
+        if (!isMounted) return;
 
-      unsubscribe = onAuthStateChanged(auth, async (firebaseUser: any) => {
-        if (firebaseUser) {
-          // Fetch custom user details (role, etc.) from Firestore
-          const { data } = await userRepository.getById(firebaseUser.uid);
-          if (isMounted) {
-            setUser(data || null);
-            setLoading(false);
+        unsubscribe = onAuthStateChanged(auth, async (firebaseUser: any) => {
+          if (firebaseUser) {
+            try {
+              // Fetch custom user details (role, etc.) from Firestore
+              const { data } = await userRepository.getById(firebaseUser.uid);
+              if (isMounted) {
+                setUser(data || null);
+                setLoading(false);
+              }
+            } catch (err) {
+              console.error("Failed to fetch user data:", err);
+              if (isMounted) {
+                setUser(null);
+                setLoading(false);
+              }
+            }
+          } else {
+            if (isMounted) {
+              setUser(null);
+              setLoading(false);
+            }
           }
-        } else {
-          if (isMounted) {
-            setUser(null);
-            setLoading(false);
+        });
+      } catch (error) {
+        import('../utils/pwa').then(({ handleChunkError }) => {
+          if (!handleChunkError(error)) {
+            console.error("Auth initialization failed:", error);
+            if (isMounted) {
+              setUser(null);
+              setLoading(false);
+            }
           }
-        }
-      });
+        });
+      }
     };
 
     // Use a small delay to yield to the main thread for React to finish initial paint

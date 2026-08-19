@@ -11,7 +11,7 @@ const firebaseConfig = {
 
 // Log a very prominent warning in production if mock values are detected
 if (import.meta.env.PROD && firebaseConfig.apiKey === 'mock-api-key') {
-  throw new Error(
+  console.error(
     "🚨 CRITICAL PRODUCTION ERROR 🚨\n" +
     "Firebase is initializing with mock credentials in a production build.\n" +
     "Please populate the correct VITE_FIREBASE_* environment variables before deploying."

@@ -65,3 +65,6 @@ export const generateMetadata = (title: string, description: string, image?: str
     },
   };
 };
+
+export * from './pwa';
+export * from './safeLazy';
