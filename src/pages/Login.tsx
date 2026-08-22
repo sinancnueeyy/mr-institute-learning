@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
 import { Card, CardContent } from '../components/ui/Card';
@@ -9,13 +9,25 @@ import { AuthService } from '../services/AuthService';
 import { ROUTES } from '../constants';
 import { GraduationCap, LogIn } from 'lucide-react';
 import { FadeIn } from '../components/animations/FadeIn';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'DEVELOPER') {
+        navigate(ROUTES.DEVELOPER.DASHBOARD);
+      } else {
+        navigate(ROUTES.OFFICE.DASHBOARD);
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,11 +39,6 @@ export default function Login() {
     if (result.error) {
       setError(result.error);
       setLoading(false);
-    } else {
-      // AuthContext onAuthStateChanged will pick this up and route appropriately,
-      // but we can also manually redirect here to the developer dashboard
-      // The RoleRoute will redirect them if they aren't a dev.
-      navigate(ROUTES.DEVELOPER.DASHBOARD);
     }
   };
 
