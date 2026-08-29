@@ -12,9 +12,9 @@ export const PopularCourses = () => {
   useEffect(() => {
     const fetchPopular = async () => {
       try {
-        // Fetch published courses
+        // Fetch active courses
         const res = await coursesRepository.query([
-          { field: 'status', operator: '==', value: 'published' }
+          { field: 'isActive', operator: '==', value: true }
         ], { limit: 3 });
         
         if (res.data) {

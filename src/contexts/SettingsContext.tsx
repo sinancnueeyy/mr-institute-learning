@@ -19,13 +19,17 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // In a real scenario, this might listen in real-time or just fetch once
     const fetchSettings = async () => {
-      const { data } = await settingsRepository.query([{ field: 'active', operator: '==', value: true }]);
-      if (data && data.length > 0) {
-        setSettings(data[0]);
+      try {
+        const { data } = await settingsRepository.getById('global');
+        if (data) {
+          setSettings(data as any);
+        }
+      } catch (err) {
+        console.error('Failed to load global settings', err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchSettings();
   }, []);
