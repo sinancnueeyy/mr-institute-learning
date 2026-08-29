@@ -1,9 +1,10 @@
 import { BaseRepository } from '../BaseRepository';
 import type { ScholarshipApplication } from '../../types/operations';
+import { SUPABASE_TABLES } from '../../constants';
 
-class ScholarshipsRepository extends BaseRepository<ScholarshipApplication> {
+export class ScholarshipsRepository extends BaseRepository<ScholarshipApplication> {
   constructor() {
-    super('scholarships');
+    super(SUPABASE_TABLES.SCHOLARSHIPS);
   }
 }
 

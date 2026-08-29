@@ -1,0 +1,43 @@
+{
+  "developerAuth": {
+    "success": true,
+    "userId": "af992eee-10b0-445a-bb77-b3ff7293ea77",
+    "email": "developer@mrinstitute.edu",
+    "profileRole": "DEVELOPER",
+    "displayName": "System Developer",
+    "profileFetchSuccess": true
+  },
+  "officeAuth": {
+    "success": true,
+    "userId": "da261d4a-1864-4cd1-8c0c-0ad9099d3cfc",
+    "email": "office@mrinstitute.edu",
+    "profileRole": "OFFICE_ADMIN",
+    "displayName": "Office Administrator",
+    "profileFetchSuccess": true
+  },
+  "invalidLoginTest": {
+    "correctlyRejected": true,
+    "errorMessage": "Invalid login credentials"
+  },
+  "passwordResetTest": {
+    "success": false,
+    "error": "Email address \"developer@mrinstitute.edu\" is invalid"
+  },
+  "rolePermissionsTest": {
+    "devAccessToDeveloperPanel": true,
+    "devAccessToOfficePanel": true,
+    "officeAccessToOfficePanel": true,
+    "officeBlockedFromDeveloperPanel": true,
+    "permissionsLogicPassed": true
+  },
+  "sessionRefreshTest": {
+    "sessionExists": true,
+    "accessTokenPresent": true,
+    "expiresAt": 1787773940
+  },
+  "logoutTest": {
+    "logoutSuccess": true,
+    "sessionCleared": true
+  },
+  "allPassed": true
+}

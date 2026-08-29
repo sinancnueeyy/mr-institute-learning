@@ -1,37 +1,23 @@
-# MR Institute of Learning - Advanced PWA & Firebase Configuration
+# MR Institute of Learning - Advanced PWA & Notification Architecture
 
-This document outlines the advanced Progressive Web App (PWA) configuration and Firebase setup implemented to ensure production readiness.
+This document outlines the Progressive Web App (PWA) configuration and background features implemented to ensure production readiness.
 
-## 1. Firebase Cloud Messaging (Push Notifications)
+## 1. Notification Architecture
+The platform implements a multi-tier notification model:
+- **`src/services/NotificationService.ts`**: Handles standard browser Web Notifications (`Notification.requestPermission()`, `Notification.showNotification()`).
+- **`src/contexts/NotificationContext.tsx`**: Manages interactive in-app toast alerts in React state.
+- **`src/repositories/operations/notificationsRepository.ts`**: Subscribes to Supabase Realtime changes on the PostgreSQL `notifications` table to alert staff of new student applications and inquiries.
 
-We have implemented Push Notifications for critical system alerts and re-engagement.
+## 2. Offline Resilience (Intake Submissions)
+To provide a smooth experience during intermittent connectivity:
+- **`src/services/OfflineQueue.ts`**: Uses `localStorage` to queue submissions when `navigator.onLine` is false.
+- **`enquiriesRepository.ts` / `formSubmissionsRepository.ts`**: Transparently enqueue failed submissions if offline.
+- **`App.tsx`**: Listens for the `online` event and flushes the queue directly to Supabase PostgREST tables.
 
-### Setup Requirements
-1. In the Firebase Console, navigate to Project Settings > Cloud Messaging.
-2. Under "Web Push certificates", generate a new Key Pair.
-3. Add the key pair to your `.env` file as `VITE_FIREBASE_VAPID_KEY`.
-
-### Architecture
-- **`src/firebase/messaging.ts`**: Initializes FCM and handles permission requests.
-- **`src/services/NotificationService.ts`**: Acts as a wrapper, extracting the token and sending it to a backend/Firestore if needed.
-- **`public/firebase-messaging-sw.js`**: Background service worker to receive push messages when the app is closed.
-
-## 2. Offline Strategy (Form Submissions)
-
-Direct offline persistence is disabled on Firestore to prevent Admin data collision.
-Instead, we implemented a custom `OfflineQueue` for critical user actions.
-
-### How it Works:
-- **`src/services/OfflineQueue.ts`**: Uses `localStorage` to queue objects when `navigator.onLine` is false.
-- **`enquiriesRepository.ts` / `formSubmissionsRepository.ts`**: Overrides the `create` method to push to the queue if offline.
-- **`App.tsx`**: Listens for the `online` event and flushes the queue back to Firestore.
-
-## 3. PWA Installation UI
-
-- **`InstallPrompt.tsx`**: Triggers based on the `beforeinstallprompt` event to gently encourage users to install the web app to their homescreen.
-- **`UpdateNotification.tsx`**: Tied to `vite-plugin-pwa`, it displays an alert when a new service worker detects updated assets, allowing users to refresh seamlessly.
+## 3. PWA Installation & Update Flow
+- **`InstallPrompt.tsx`**: Listens for the `beforeinstallprompt` event to provide a clean install prompt for mobile and desktop users.
+- **`UpdateNotification.tsx`**: Connected to `vite-plugin-pwa`, prompts users to reload when a new service worker bundle is activated.
 
 ## 4. Analytics
-
-- **`AnalyticsService.ts`**: A wrapper for Google Analytics (GA4).
-- Tracks initialization on load and tracks page views dynamically within `App.tsx` on route changes using `useLocation`.
+- **`AnalyticsService.ts`**: Google Analytics (GA4) integration using `VITE_GA_MEASUREMENT_ID`.
+- Dynamically tracks route changes in `App.tsx` via `useLocation`.

@@ -1,10 +1,12 @@
 import { BaseRepository } from '../BaseRepository';
 import type { CharityApplication } from '../../types/operations';
+import { SUPABASE_TABLES } from '../../constants';
 
-class CharityRepository extends BaseRepository<CharityApplication> {
+export class CharityApplicationsRepository extends BaseRepository<CharityApplication> {
   constructor() {
-    super('charityApplications');
+    super(SUPABASE_TABLES.CHARITY_APPLICATIONS);
   }
 }
 
-export const charityRepository = new CharityRepository();
+export const charityRepository = new CharityApplicationsRepository();
+export const charityApplicationsRepository = charityRepository;

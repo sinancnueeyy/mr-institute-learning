@@ -7,7 +7,7 @@ import { FadeIn } from '../../components/animations/FadeIn';
 import { Search, Trash2, Link as LinkIcon, FileText, FileVideo, UploadCloud } from 'lucide-react';
 import { type MediaAsset } from '../../types/cms';
 import { mediaRepository } from '../../repositories/cms';
-import { StorageService } from '../../firebase/storage';
+import { StorageService } from '../../services/StorageService';
 
 export default function DeveloperMedia() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -123,7 +123,10 @@ export default function DeveloperMedia() {
             variant="outline" 
             size="sm" 
             className="text-error border-error/20 hover:bg-error/10" 
-            onClick={() => mediaRepository.delete(item.id as string)}
+            onClick={async () => {
+              if (item.url) await StorageService.deleteFile(item.url);
+              mediaRepository.delete(item.id as string);
+            }}
           >
             <Trash2 className="w-4 h-4" />
           </Button>
@@ -138,46 +141,50 @@ export default function DeveloperMedia() {
 
   return (
     <FadeIn className="space-y-6 h-full flex flex-col">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex justify-between items-center flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-text-primary">Media Library</h2>
-          <p className="text-text-secondary">Manage and organize your media files.</p>
+          <h1 className="text-2xl font-bold text-text-primary">Media Library</h1>
+          <p className="text-text-secondary">Upload, manage, and inspect media assets across the website.</p>
         </div>
-        
         <div>
           <input 
             type="file" 
             ref={fileInputRef} 
             onChange={handleFileChange} 
             className="hidden" 
+            accept="image/*,video/*,.pdf"
           />
-          <Button onClick={handleUploadClick} loading={isUploading}>
-            {isUploading ? `Uploading (${uploadProgress.toFixed(0)}%)` : (
-              <><UploadCloud className="w-4 h-4 mr-2" /> Upload File</>
-            )}
+          <Button onClick={handleUploadClick} disabled={isUploading}>
+            <UploadCloud className="w-4 h-4 mr-2" />
+            {isUploading ? `Uploading (${uploadProgress.toFixed(0)}%)...` : 'Upload Media'}
           </Button>
         </div>
       </div>
 
-      <Card className="flex-1 flex flex-col border-border shadow-sm overflow-hidden">
-        <CardHeader className="border-b border-border bg-surface/30">
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-text-muted" />
-            <Input 
-              placeholder="Search files..." 
-              className="pl-9"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+      <Card className="flex-1 flex flex-col">
+        <CardHeader>
+          <div className="flex justify-between items-center gap-4">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-text-muted" />
+              <Input
+                placeholder="Search media by name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+            <div className="text-sm text-text-secondary">
+              Total Assets: {data.length}
+            </div>
           </div>
         </CardHeader>
-        <CardContent className="p-0 flex-1 overflow-auto">
-          <DataTable 
-            data={filteredData}
+        <CardContent className="flex-1 overflow-auto">
+          <DataTable
             columns={columns}
-            keyExtractor={(item) => item.id}
-            emptyMessage="No media files found."
+            data={filteredData}
+            keyExtractor={(item) => item.id || item.url || item.name}
             isLoading={isLoading}
+            emptyMessage="No media assets found. Upload some to get started!"
           />
         </CardContent>
       </Card>

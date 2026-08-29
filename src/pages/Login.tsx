@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Container } from '../components/ui/Container';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -38,8 +38,9 @@ export default function Login() {
     
     if (result.error) {
       setError(result.error);
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -72,7 +73,7 @@ export default function Login() {
                   <Input 
                     type="email" 
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     required 
                     placeholder="admin@mrinstitute.edu"
                   />
@@ -81,14 +82,14 @@ export default function Login() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <label className="text-sm font-semibold text-text-primary">Password</label>
-                    <a href="#" className="text-xs font-medium text-brand-primary hover:text-brand-primary-dark">
+                    <Link to={ROUTES.AUTH.FORGOT_PASSWORD} className="text-xs font-medium text-brand-primary hover:text-brand-primary-dark">
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <Input 
                     type="password" 
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     required 
                     placeholder="••••••••"
                   />
@@ -106,3 +107,4 @@ export default function Login() {
     </div>
   );
 }
+

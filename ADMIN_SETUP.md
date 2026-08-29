@@ -1,30 +1,36 @@
 # Admin Setup Guide
 
-This document explains how to set up the very first administrator accounts in the production environment. 
+This document explains how administrator and staff accounts are configured in the Supabase production environment.
 
-Due to our strict security rules, you cannot simply sign up from the UI to become an admin. You must manually assign the appropriate role using the Firebase Console or an initialization script for the very first user.
+Due to strict Row Level Security (RLS) policies, administrative roles are managed directly through Supabase Auth and the `user_profiles` table.
 
-## 1. Creating the First Developer (Super Admin)
+## 1. Initial Production Accounts
+The standard initial administrative accounts are:
+* **Developer (Super Admin)**: `developer@mrinstitute.edu`
+  - Profile Role: `DEVELOPER`
+  - Scope: Full access across `/developer/*` (CMS, Media, Settings, System Logs) and `/office/*`.
+* **Office Administrator**: `office@mrinstitute.edu`
+  - Profile Role: `OFFICE_ADMIN`
+  - Scope: Access to `/office/*` (Admissions, Students, CRM, Scholarships, Charity, Notifications, Reports).
 
-1. Navigate to your live production website and click on a login link (or go directly to `/login`).
-2. Create a standard user account using an Email and Password.
-3. Open the **Firebase Console**.
-4. Go to **Firestore Database** > `users` collection.
-5. Find the document that matches the UID of the account you just created.
-6. Manually edit the document and set the `role` field (string) to exactly: `developer`.
-7. Log out and log back into the application. 
-8. You now have full access to the `/developer/*` routes.
+## 2. Provisioning New Staff in Supabase
 
-## 2. Creating an Office Admin
+1. Open your **Supabase Dashboard** > **Authentication** > **Users**.
+2. Click **Add User** > **Create User** and enter the staff member's email and temporary password.
+3. Open the **SQL Editor** or **Table Editor** and navigate to `public.user_profiles`.
+4. Insert or update the user's profile record:
+   ```sql
+   INSERT INTO public.user_profiles (id, email, display_name, role)
+   VALUES (
+     '<USER_UUID_FROM_AUTH>',
+     'staff@mrinstitute.edu',
+     'Staff Name',
+     'OFFICE_ADMIN' -- or 'DEVELOPER'
+   )
+   ON CONFLICT (id) DO UPDATE SET role = EXCLUDED.role;
+   ```
+5. When the user signs in at `/login`, `AuthContext.tsx` reads their role and redirects them to their designated portal (`/office` or `/developer`).
 
-The Developer CMS handles the creation and management of Office staff.
-1. Log in with your `developer` account.
-2. Navigate to the Developer Dashboard.
-3. Use the user management interface (or invite system) to create an account for an office staff member.
-4. The system will automatically assign the `officeAdmin` role to this user.
-5. This user will now have restricted access to the `/office/*` routes, allowing them to manage applications, CRM data, and students, but preventing them from altering the website layout or system settings.
-
-## 3. How Protection Works
-
-- **Routing Level:** Our React application uses the `RoleRoute.tsx` component. If a user attempts to access `/developer/*` without the `developer` claim, they are instantly redirected to a `/unauthorized` page.
-- **Database Level:** Even if a user bypasses the frontend router, `firestore.rules` guarantees that any write operation to CMS collections strictly requires `request.auth.token.role == 'developer'`.
+## 3. Two-Tier Protection Model
+- **Frontend Routing Guard:** `RoleRoute.tsx` checks the user's authenticated profile role. If an unauthorized role attempts access, they are redirected to `/unauthorized`.
+- **Database-Level RLS:** Even if client-side routing is manipulated, PostgreSQL RLS policies (`public.is_developer()`, `public.is_staff()`) strictly deny unauthorized SELECT, INSERT, UPDATE, or DELETE actions.

@@ -4,5 +4,6 @@ export * from './enquiriesRepository';
 export * from './scholarshipsRepository';
 export * from './charityRepository';
 export * from './notificationsRepository';
+export * from './notificationRepository';
 export * from './followUpsRepository';
 export * from './formSubmissionsRepository';

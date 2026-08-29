@@ -3,12 +3,22 @@ import { SlideIn } from '../animations/SlideIn';
 import { Quote } from 'lucide-react';
 import type { TestimonialInitial } from '../../data/initialData';
 
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  role: string;
+  content: string;
+  avatar?: string;
+}
+
 export interface TestimonialCardProps {
-  testimonial: TestimonialInitial;
+  testimonial: TestimonialItem | TestimonialInitial;
   delay?: number;
 }
 
 export function TestimonialCard({ testimonial, delay = 0 }: TestimonialCardProps) {
+  const avatarUrl = testimonial.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80';
+
   return (
     <SlideIn delay={delay} duration={0.5} direction="up" className="h-full">
       <Card className="h-full bg-surface border-border/50 hover:shadow-sm transition-shadow duration-300">
@@ -23,7 +33,7 @@ export function TestimonialCard({ testimonial, delay = 0 }: TestimonialCardProps
           
           <div className="flex items-center gap-4 mt-auto relative z-10">
             <img loading="lazy" 
-              src={testimonial.avatar} 
+              src={avatarUrl} 
               alt={testimonial.name} 
               className="w-12 h-12 rounded-full object-cover border-2 border-brand-primary/20"
             />

@@ -48,7 +48,7 @@ export function Toast({ id, title, message, type = 'info', duration = 5000, onCl
           {message && <p className="mt-1 text-sm opacity-90">{message}</p>}
         </div>
         <div className="ml-4 flex shrink-0">
-          <Button variant="ghost" size="icon" onClick={() => onClose(id)} className="h-6 w-6 rounded-full inline-flex text-current hover:bg-black/5 dark:hover:bg-white/10">
+          <Button variant="ghost" size="icon" onClick={() => onClose(id)} className="h-6 w-6 rounded-full inline-flex text-current hover:bg-black/5">
             <X className="h-4 w-4" />
           </Button>
         </div>

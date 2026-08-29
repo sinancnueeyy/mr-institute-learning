@@ -101,7 +101,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
             disabled={field.disabled}
             readOnly={field.readOnly}
             rows={4}
-            className={`w-full bg-surface border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all resize-none ${
+            className={`w-full bg-white text-text-primary border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all resize-none ${
               error 
                 ? 'border-error focus:ring-error/20 focus:border-error' 
                 : 'border-border focus:ring-brand-primary/20 focus:border-brand-primary'
@@ -118,7 +118,7 @@ export function FormFieldRenderer({ field, value, onChange, error, onFileSelect 
             onChange={handleChange}
             required={field.required}
             disabled={field.disabled}
-            className={`w-full bg-surface border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all appearance-none ${
+            className={`w-full bg-white text-text-primary border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-4 transition-all appearance-none ${
               error 
                 ? 'border-error focus:ring-error/20 focus:border-error' 
                 : 'border-border focus:ring-brand-primary/20 focus:border-brand-primary'

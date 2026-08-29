@@ -3,39 +3,34 @@
 Complete this checklist before performing the final public deployment.
 
 ## 1. Security & Authentication
-- [ ] Review `firestore.rules` and confirm no unintended wildcards exist.
-- [ ] Review `storage.rules` and confirm read/write limits are correct.
-- [ ] Confirm no mock user credentials exist in the production Firestore database.
-- [ ] Confirm protected routes properly redirect unauthorized users to `/login`.
+- [ ] Review PostgreSQL Row Level Security (RLS) policies on all 21 tables.
+- [ ] Verify `mr-institute-documents` is private and `mr-institute-media` is public.
+- [ ] Confirm protected routes properly redirect unauthorized users to `/login` or `/unauthorized`.
+- [ ] Confirm no high-privilege service-role keys are exposed in client environment variables.
 
-## 2. Firebase & Environment
-- [ ] Copy `.env.example` to `.env.production` and fill in all real production credentials.
-- [ ] Ensure `VITE_FIREBASE_API_KEY` and other sensitive configs are correctly populated.
-- [ ] Run `firebase use --add` to connect to the correct production Firebase project.
-- [ ] Verify `firebase.json` matches the intended hosting and routing structure.
+## 2. Supabase & Environment Configuration
+- [ ] Populate `.env.local` / deployment environment with real credentials:
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_ANON_KEY`
+  - `VITE_GA_MEASUREMENT_ID`
+  - `VITE_SITE_URL`
+- [ ] Configure Site URL and Redirect URLs in Supabase Authentication Dashboard.
 
 ## 3. Data & Content
-- [ ] Remove all mock entries (dummy forms, dummy applications, dummy users) from Firestore.
-- [ ] Retain structurally required CMS data (e.g., initial Homepage layout documents) if needed, or re-run the seed script in a controlled manner.
-- [ ] Confirm the default Developer account has been created via Firebase Auth and has the `developer` role in the `users` collection.
+- [ ] Confirm seed CMS content exists for `cms_homepage`, `cms_about`, `cms_charity`, and `cms_settings`.
+- [ ] Confirm Developer and Office Admin profiles exist in `user_profiles`.
 
 ## 4. Build & Performance
-- [ ] Run `npm run build` locally. Check if it completes without any TypeScript or Vite errors.
-- [ ] Confirm chunk splitting is working as expected (vendor, ui, firebase chunks).
+- [ ] Run `npx tsc --noEmit` and confirm 0 errors.
+- [ ] Run `npm run build` locally. Confirm successful chunking and service worker generation.
 - [ ] Run a Lighthouse audit on the preview deployment (verify accessibility, performance, and SEO scores).
-- [ ] Verify images load efficiently without layout shift (`loading="lazy"`).
+- [ ] Verify images load efficiently with responsive layouts.
 
 ## 5. Domain & SSL
-- [ ] Verify the custom domain (e.g., `mrinstitute.edu`) is configured in the Firebase Console under Hosting.
-- [ ] Update DNS records (A/TXT) as provided by Firebase.
-- [ ] Confirm SSL provisioning is complete (this can take up to 24 hours after DNS propagation).
-- [ ] Force HTTPS redirects (handled automatically by Firebase Hosting).
+- [ ] Configure custom domain in hosting provider (e.g., Vercel).
+- [ ] Update DNS records (CNAME / A) at domain registrar.
+- [ ] Confirm SSL provisioning is active and HTTPS redirects are forced.
 
 ## 6. SEO & Analytics
-- [ ] Update `public/robots.txt` and `public/sitemap.xml` with the final production domain URL.
-- [ ] Ensure `VITE_GA_MEASUREMENT_ID` is updated in `.env.production`.
-- [ ] Add the domain to Google Search Console and verify ownership.
-
-## 7. Backups
-- [ ] Set up scheduled exports for Firestore data to a Google Cloud Storage backup bucket.
-- [ ] Document emergency rollback procedures.
+- [ ] Update `public/robots.txt` and `public/sitemap.xml` with the final production domain.
+- [ ] Verify Google Analytics measurement ID receives page view events.

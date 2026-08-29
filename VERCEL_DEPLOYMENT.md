@@ -4,10 +4,8 @@ This document outlines the steps required to deploy the MR Institute of Learning
 
 ## 1. Prerequisites
 - A Vercel Account (https://vercel.com)
-- A GitHub Account
-- Firebase Production Credentials
-- ReCaptcha Enterprise Key
-- VAPID Key for Push Notifications
+- A GitHub repository connected to your Vercel account
+- Supabase Project Credentials (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`)
 
 ## 2. GitHub Connection
 1. Push this repository to your GitHub account:
@@ -19,40 +17,34 @@ This document outlines the steps required to deploy the MR Institute of Learning
 
 ## 3. Vercel Import
 1. Log in to Vercel and click **Add New... > Project**.
-2. Select your newly created `mr-institute` repository from GitHub.
+2. Select your `mr-institute` repository from GitHub.
 3. Configure the Project:
    - **Framework Preset**: Vite
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 
 ## 4. Environment Variables Setup
-Before clicking Deploy, expand the **Environment Variables** section and add all the keys from `.env.example`:
+Before clicking Deploy, expand the **Environment Variables** section and add the production keys:
 
-- `VITE_FIREBASE_API_KEY`
-- `VITE_FIREBASE_AUTH_DOMAIN`
-- `VITE_FIREBASE_PROJECT_ID`
-- `VITE_FIREBASE_STORAGE_BUCKET`
-- `VITE_FIREBASE_MESSAGING_SENDER_ID`
-- `VITE_FIREBASE_APP_ID`
-- `VITE_GA_MEASUREMENT_ID`
-- `VITE_SITE_URL`
-- `VITE_FIREBASE_VAPID_KEY`
-- `VITE_RECAPTCHA_ENTERPRISE_KEY`
+- `VITE_SUPABASE_URL` (e.g. `https://jzsuozkgqlvlcrwwvpgu.supabase.co`)
+- `VITE_SUPABASE_ANON_KEY` (Your public browser anon key)
+- `VITE_GA_MEASUREMENT_ID` (Optional Google Analytics Measurement ID)
+- `VITE_SITE_URL` (e.g. `https://mrinstitute.edu`)
 
-*Ensure that none of your actual secrets are committed to the `.env` file in Git.*
+*Note: Never expose the Supabase `service_role` key in Vercel client environment variables.*
 
 ## 5. Deploy
-Click **Deploy**. Vercel will run the build and publish the app.
-*Note: Our `vercel.json` ensures that all routing correctly falls back to `index.html` (SPA routing) and sets essential security headers.*
+Click **Deploy**. Vercel will build the production bundle (`tsc -b && vite build`) and publish the app.
+*Note: Our `vercel.json` ensures that all routes correctly rewrite to `/index.html` (SPA routing) and sets strict security headers.*
 
 ## 6. Custom Domain & SSL
 1. Go to your Vercel Project Settings > **Domains**.
 2. Add your custom domain (e.g., `mrinstitute.edu`).
-3. Follow the DNS instructions (adding the CNAME/A Records) in your domain registrar.
-4. **Important**: Vercel automatically issues an SSL certificate. This is critical because **Progressive Web App (PWA)** functionality, including Service Workers and Push Notifications, requires a secure HTTPS connection.
+3. Follow the DNS instructions (adding the CNAME/A records) with your domain registrar.
+4. Vercel automatically provisions an SSL/TLS certificate. HTTPS is mandatory for PWA Service Workers and modern Web APIs.
 
-## 7. Firebase Configuration Update
-Once deployed and your domain is linked:
-1. Go to the **Firebase Console** > Authentication > Settings > Authorized domains.
-2. Add your Vercel production domain.
-3. If using App Check, register the new domain under the App Check settings.
+## 7. Supabase Authentication Domain Configuration
+Once deployed and your custom domain is connected:
+1. Open your **Supabase Dashboard** > Authentication > URL Configuration.
+2. Set the **Site URL** to your production URL (e.g., `https://mrinstitute.edu`).
+3. Add your Vercel preview and production domains to **Redirect URLs**.

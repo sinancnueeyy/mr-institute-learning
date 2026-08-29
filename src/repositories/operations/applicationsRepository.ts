@@ -1,9 +1,10 @@
 import { BaseRepository } from '../BaseRepository';
 import type { Application } from '../../types/operations';
+import { SUPABASE_TABLES } from '../../constants';
 
-class ApplicationsRepository extends BaseRepository<Application> {
+export class ApplicationsRepository extends BaseRepository<Application> {
   constructor() {
-    super('applications');
+    super(SUPABASE_TABLES.APPLICATIONS);
   }
 }
 

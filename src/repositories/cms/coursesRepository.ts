@@ -1,9 +1,10 @@
 import { BaseRepository } from '../BaseRepository';
 import { type CourseContent } from '../../types/cms';
+import { SUPABASE_TABLES } from '../../constants';
 
-class CoursesRepository extends BaseRepository<CourseContent> {
+export class CoursesRepository extends BaseRepository<CourseContent> {
   constructor() {
-    super('cms_coursecontent');
+    super(SUPABASE_TABLES.CMS_COURSES);
   }
 }
 

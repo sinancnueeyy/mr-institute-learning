@@ -14,8 +14,8 @@ import { useState, useEffect } from 'react';
 import { initialTestimonials } from '../data/initialData';
 import { PopularCourses } from '../components/growth/PopularCourses';
 import { TrustIndicators } from '../components/growth/TrustIndicators';
-import { galleryRepository, homepageRepository } from '../repositories/cms';
-import { type GalleryContent, type HomepageContent } from '../types/cms';
+import { galleryRepository, homepageRepository, testimonialsRepository } from '../repositories/cms';
+import { type GalleryContent, type HomepageContent, type TestimonialContent } from '../types/cms';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants';
 import { useSEO } from '../hooks/useSEO';
@@ -27,6 +27,7 @@ interface HomeProps {
 export default function Home({ draftData }: HomeProps) {
   const [data, setData] = useState<Partial<HomepageContent>>(draftData || {});
   const [featuredGallery, setFeaturedGallery] = useState<GalleryContent[]>([]);
+  const [testimonials, setTestimonials] = useState<TestimonialContent[]>([]);
 
   useEffect(() => {
     if (draftData) {
@@ -41,6 +42,16 @@ export default function Home({ draftData }: HomeProps) {
 
         const galleryRes = await galleryRepository.query([{ field: 'isActive', operator: '==', value: true }], { limit: 4 });
         if (galleryRes.data) setFeaturedGallery(galleryRes.data);
+
+        const testimonialsRes = await testimonialsRepository.query(
+          [{ field: 'isActive', operator: '==', value: true }],
+          { orderBy: 'order_index', direction: 'asc', limit: 6 }
+        );
+        if (testimonialsRes.data && testimonialsRes.data.length > 0) {
+          setTestimonials(testimonialsRes.data);
+        }
+      } catch (err) {
+        console.error('Error fetching home CMS data:', err);
       } finally {
         // Data loaded
       }
@@ -201,7 +212,16 @@ export default function Home({ draftData }: HomeProps) {
             subtitle="Don't just take our word for it. Hear from the students who achieved their dreams with us."
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {initialTestimonials.map((testimonial, i) => (
+            {(testimonials.length > 0
+              ? testimonials.map(t => ({
+                  id: t.id,
+                  name: t.studentName,
+                  role: t.course,
+                  content: t.review,
+                  avatar: t.image,
+                }))
+              : initialTestimonials
+            ).map((testimonial, i) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} delay={i * 0.1} />
             ))}
           </div>

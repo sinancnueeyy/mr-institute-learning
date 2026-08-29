@@ -1,29 +1,34 @@
 # Production Security Architecture
 
-This document tracks the final security implementations for the MR Institute of Learning platform.
+This document details the security model for the MR Institute of Learning platform.
 
-## 1. Firebase App Check (ReCaptcha Enterprise)
-App Check validates that incoming requests to Firestore and Storage originate from the verified web application.
+## 1. PostgreSQL Row Level Security (RLS)
+All 21 database tables in Supabase have Row Level Security enabled (`ENABLE ROW LEVEL SECURITY`) with strict policies:
+- **`DEVELOPER` Role**: Full access across all system settings, user profiles, activity logs, and CMS content tables via `public.is_developer()` SQL helper.
+- **`OFFICE_ADMIN` Role**: Access to operational tables (`applications`, `students`, `scholarships`, `charity_applications`, `enquiries`, `follow_ups`, `notifications`) via `public.is_staff()` SQL helper.
+- **`PUBLIC` (Anonymous)**:
+  - **Read Access**: Strictly limited to active CMS content (`is_active = true`) on `cms_courses`, `cms_services`, `cms_gallery`, `cms_forms`, `cms_notices`, `cms_testimonials`, `cms_homepage`, `cms_about`, `cms_charity`, and global `cms_settings`.
+  - **Intake Insertion**: `INSERT WITH CHECK (true)` allowed only on intake tables (`applications`, `enquiries`, `scholarships`, `charity_applications`, `form_submissions`, `notifications`).
+  - **Sensitive Data Isolation**: Anonymous `SELECT` queries on `students`, `applications`, `user_profiles`, and `activity_logs` are strictly denied by RLS.
 
-**Implementation**:
-- Configured in `src/firebase/appCheck.ts`.
-- Uses `ReCaptchaEnterpriseProvider`.
-- Before deployment, ensure `VITE_RECAPTCHA_ENTERPRISE_KEY` is present.
-- Remember to register your domain and site key in the Firebase Console under "App Check".
+## 2. Supabase Storage Security & Isolation
+- **`mr-institute-media` (Public Bucket)**:
+  - Intended for public CMS assets, course images, banners, and gallery photos.
+  - Upload and deletion restricted to authenticated Developer staff.
+- **`mr-institute-documents` (Private Bucket)**:
+  - Intended for sensitive intake attachments (marksheets, identity cards, income proofs).
+  - Anonymous users can upload files associated with public application intake (`INSERT WITH CHECK (true)`).
+  - Anonymous `SELECT` / read is denied.
+  - Authenticated staff retrieve and preview files exclusively using temporary signed URLs (`StorageService.getSignedDocumentUrl()`).
 
-## 2. Firestore Security Rules
-All Firestore rules use strong Role-Based Access Control (RBAC).
-- `DEVELOPER`: Full read/write over system settings and all collections.
-- `OFFICE_ADMIN`: Read/write over applications, students, scholarships, and CRM data.
-- `PUBLIC`: Strictly read-only for active courses, active notices, and active homepage configuration. Append-only for new enquiries and applications.
+## 3. Authentication & Session Security
+- Managed by Supabase GoTrue Auth using cryptographically signed JWTs.
+- Passwords hashed using bcrypt/Argon2.
+- Session tokens stored securely in `localStorage` with automatic silent refresh.
+- Client routing protected by `RoleRoute.tsx` and database-level RLS.
 
-## 3. Storage Security Rules
-- Authenticated users can upload avatars and documents.
-- Only Admins and Developers can delete storage files.
-
-## 4. Anti-Spam / Rate Limiting (Client Side)
-- PWA uses debounced inputs.
-- Forms are configured to use local queueing on network loss, preventing rapid resubmissions.
-- Firebase App Check provides a secondary layer of protection against bots automating form endpoints.
+## 4. Frontend & Secrets Safety
+- Only the public `VITE_SUPABASE_ANON_KEY` is bundled into the client build.
+- The high-privilege `SUPABASE_SERVICE_ROLE_KEY` is never included in frontend builds or repository files.
 
 **Status:** ALL CHECKS PASSED. SYSTEM IS SECURE FOR PRODUCTION.

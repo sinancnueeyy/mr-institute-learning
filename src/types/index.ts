@@ -10,8 +10,8 @@ export interface User {
   email: string;
   displayName?: string;
   role: Role;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: number | string;
+  updatedAt: number | string;
 }
 
 export interface Settings {

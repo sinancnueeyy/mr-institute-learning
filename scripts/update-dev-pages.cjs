@@ -64,4 +64,4 @@ pages.forEach(p => {
   fs.writeFileSync(filePath, content);
 });
 
-console.log('Firebase integrated into Developer pages.');
+console.log('Repositories integrated into Developer pages.');

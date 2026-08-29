@@ -21,7 +21,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
             'bg-transparent': background === 'transparent',
             'bg-surface': background === 'surface',
             'bg-brand-primary text-text-on-primary': background === 'primary',
-            'bg-brand-secondary text-brand-secondary-foreground': background === 'secondary',
+            'bg-brand-secondary text-white': background === 'secondary',
           },
           className
         )}

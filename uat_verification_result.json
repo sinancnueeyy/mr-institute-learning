@@ -1,0 +1,192 @@
+{
+  "auth": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Developer Sign-In & Profile",
+        "passed": true,
+        "detail": "Role: DEVELOPER, UserID: af992eee-10b0-445a-bb77-b3ff7293ea77"
+      },
+      {
+        "name": "Office Admin Sign-In & Profile",
+        "passed": true,
+        "detail": "Role: OFFICE_ADMIN, UserID: da261d4a-1864-4cd1-8c0c-0ad9099d3cfc"
+      },
+      {
+        "name": "Invalid Credentials Rejection",
+        "passed": true,
+        "detail": "Error correctly returned: Invalid login credentials"
+      }
+    ]
+  },
+  "roleSecurity": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Anon Read on Applications Blocked",
+        "passed": true,
+        "detail": "Rows returned: 0"
+      },
+      {
+        "name": "Anon Read on Public CMS Allowed",
+        "passed": true,
+        "detail": "Courses retrieved: 5"
+      },
+      {
+        "name": "Office Admin Access to Applications",
+        "passed": true,
+        "detail": "Found 1 existing records"
+      }
+    ]
+  },
+  "storageSecurity": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Anonymous Document Intake Upload",
+        "passed": true,
+        "detail": "Uploaded to submissions/UAT_A10_1787989276624/test_applicant_id.pdf"
+      },
+      {
+        "name": "Anonymous Direct Read on Private Documents Blocked",
+        "passed": true,
+        "detail": "Status: 400"
+      },
+      {
+        "name": "Staff Signed URL Access & Content Match",
+        "passed": true,
+        "detail": "Status: 200, Content verified"
+      },
+      {
+        "name": "Public Media Bucket Readability",
+        "passed": true,
+        "detail": "Status: 200"
+      }
+    ]
+  },
+  "admissionsWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Candidate Application Submission",
+        "passed": true,
+        "detail": "App ID: app_1787989280333_6c8o7"
+      },
+      {
+        "name": "Office Admin Application Discovery",
+        "passed": true,
+        "detail": "Found: UAT Candidate UAT_A10_1787989276624"
+      },
+      {
+        "name": "Office Admin Status Update & Persistence",
+        "passed": true,
+        "detail": "Status: accepted"
+      }
+    ]
+  },
+  "scholarshipWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Scholarship Application Submission",
+        "passed": true,
+        "detail": "Scholarship ID: sch_1787989280491_554ik"
+      },
+      {
+        "name": "Office Admin Scholarship Approval",
+        "passed": true,
+        "detail": "Status: approved"
+      }
+    ]
+  },
+  "charityWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Charity Application Submission",
+        "passed": true,
+        "detail": "Charity ID: cha_1787989280637_9opp6"
+      },
+      {
+        "name": "Office Admin Charity Approval",
+        "passed": true,
+        "detail": "Status: approved"
+      }
+    ]
+  },
+  "enquiryCRMWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Public Contact Form Enquiry Submission",
+        "passed": true,
+        "detail": "Enquiry ID: enq_1787989280734_u7wwd"
+      },
+      {
+        "name": "Office Admin Status Transition",
+        "passed": true,
+        "detail": "Status: read"
+      },
+      {
+        "name": "Office Admin Follow-up Note Logging",
+        "passed": true,
+        "detail": "FollowUp ID: fol_1787989280838_jckrm"
+      }
+    ]
+  },
+  "developerCMSWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "CMS Create Course",
+        "passed": true,
+        "detail": "ID: course_1787989280887_hwwsb, Title: UAT Test Course UAT_A10_1787989276624"
+      },
+      {
+        "name": "CMS Read Course",
+        "passed": true,
+        "detail": "Title match confirmed"
+      },
+      {
+        "name": "CMS Update Course",
+        "passed": true,
+        "detail": "Updated description confirmed"
+      },
+      {
+        "name": "CMS Delete Course",
+        "passed": true,
+        "detail": "Safely deleted temporary course"
+      }
+    ]
+  },
+  "realtimeWorkflow": {
+    "passed": true,
+    "details": [
+      {
+        "name": "Realtime Event Subscription & Delivery",
+        "passed": true,
+        "detail": "Form submission inserted; channel subscription verified"
+      },
+      {
+        "name": "Realtime Channel Teardown",
+        "passed": true,
+        "detail": "Channel unsubscribed cleanly"
+      }
+    ]
+  },
+  "dataIntegrityAndCleanup": {
+    "passed": true,
+    "details": [
+      {
+        "name": "UAT Data Identification & Cleanup",
+        "passed": true,
+        "detail": "Safely cleaned up all temporary records and storage files tagged UAT_A10_1787989276624"
+      }
+    ]
+  },
+  "summary": {
+    "total": 27,
+    "passed": 27,
+    "failed": 0
+  }
+}

@@ -162,8 +162,8 @@ export const PublicLayout: React.FC = () => {
         </Suspense>
       </main>
 
-      {/* Premium Footer */}
-      <footer className="dark bg-surface text-text-primary border-t border-border pt-16 pb-8">
+      {/* Premium Light Footer */}
+      <footer className="bg-surface-muted text-text-primary border-t border-border pt-16 pb-8">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-1 md:col-span-2 lg:col-span-1">
@@ -180,7 +180,7 @@ export const PublicLayout: React.FC = () => {
             </div>
             
             <div>
-              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Quick Links</h3>
+              <h3 className="font-bold text-brand-primary mb-6 uppercase tracking-wider text-sm">Quick Links</h3>
               <ul className="space-y-4">
                 <li><Link to={ROUTES.PUBLIC.ABOUT} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">About Us</Link></li>
                 <li><Link to={ROUTES.PUBLIC.COURSES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Our Courses</Link></li>
@@ -190,7 +190,7 @@ export const PublicLayout: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Services</h3>
+              <h3 className="font-bold text-brand-primary mb-6 uppercase tracking-wider text-sm">Services</h3>
               <ul className="space-y-4">
                 <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Academic Tuition</Link></li>
                 <li><Link to={ROUTES.PUBLIC.SERVICES} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">Career Guidance</Link></li>
@@ -200,19 +200,33 @@ export const PublicLayout: React.FC = () => {
             </div>
 
             <div>
-              <h3 className="font-bold text-text-on-dark mb-6 uppercase tracking-wider text-sm">Contact Us</h3>
+              <h3 className="font-bold text-brand-primary mb-6 uppercase tracking-wider text-sm">Contact Us</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group">
                   <MapPin className="w-5 h-5 text-brand-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm text-text-secondary">123 Education Hub, Main Street, City Name, State 12345</span>
+                  <span className="text-sm text-text-secondary">{settings?.address || 'MR Institute Campus, Main Knowledge City Road, Kerala, India'}</span>
                 </li>
                 <li className="flex items-center gap-3 group">
                   <Phone className="w-5 h-5 text-brand-primary shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm text-text-secondary">+91 98765 43210</span>
+                  <a href={`tel:${(settings?.contactPhone || '+91 98765 43210').replace(/\s+/g, '')}`} className="text-sm text-text-secondary hover:text-brand-primary transition-colors">
+                    {settings?.contactPhone || '+91 98765 43210'}
+                  </a>
                 </li>
                 <li className="flex items-center gap-3 group">
                   <Mail className="w-5 h-5 text-brand-primary shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm text-text-secondary">info@mrinstitute.edu</span>
+                  <a href={`mailto:${settings?.contactEmail || 'info@mrinstitute.edu'}`} className="text-sm text-text-secondary hover:text-brand-primary transition-colors">
+                    {settings?.contactEmail || 'info@mrinstitute.edu'}
+                  </a>
+                </li>
+                <li>
+                  <Link to={ROUTES.AUTH.LOGIN} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">
+                    Developer Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to={ROUTES.AUTH.LOGIN} className="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors">
+                    Staff Login
+                  </Link>
                 </li>
               </ul>
             </div>

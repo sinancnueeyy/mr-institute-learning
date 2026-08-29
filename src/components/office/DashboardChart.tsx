@@ -38,8 +38,8 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             <XAxis dataKey={xKey} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} dy={10} />
             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
             <Tooltip 
-              contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-              cursor={{ fill: '#F3F4F6' }}
+              contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', color: '#0F172A', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+              cursor={{ fill: '#F8FAFC' }}
             />
             <Legend wrapperStyle={{ paddingTop: '20px' }} iconType="circle" />
             {series.map((s) => (
@@ -54,7 +54,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
             <XAxis dataKey={xKey} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} dy={10} />
             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
             <Tooltip 
-              contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+              contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', color: '#0F172A', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             />
             <Legend wrapperStyle={{ paddingTop: '20px' }} iconType="circle" />
             {series.map((s) => (
@@ -75,7 +75,7 @@ export const DashboardChart: React.FC<DashboardChartProps> = ({
         return (
           <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
             <Tooltip 
-              contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+              contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', color: '#0F172A', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
             />
             <Legend verticalAlign="middle" align="right" layout="vertical" iconType="circle" />
             <Pie

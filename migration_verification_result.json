@@ -1,0 +1,135 @@
+{
+  "tables": {
+    "user_profiles": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "activity_logs": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_homepage": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_about": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_courses": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_services": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_charity": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_gallery": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_forms": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_notices": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_media": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_settings": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "cms_testimonials": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "applications": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "students": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "enquiries": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "scholarships": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "charity_applications": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "form_submissions": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "follow_ups": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    },
+    "notifications": {
+      "exists": true,
+      "rlsActive": "Accessible (Public Read)"
+    }
+  },
+  "seedData": {
+    "cms_homepage": {
+      "exists": true,
+      "headline": "Empowering Minds, Shaping Futures"
+    },
+    "cms_settings": {
+      "exists": true,
+      "siteName": "MR Institute of Learning"
+    },
+    "cms_about": {
+      "exists": true,
+      "title": "About MR Institute"
+    },
+    "cms_charity": {
+      "exists": true,
+      "title": "MR Educational Charity & Scholarships"
+    },
+    "cms_courses": {
+      "count": 6,
+      "expected": 6
+    },
+    "cms_testimonials": {
+      "count": 3,
+      "expected": 3
+    }
+  },
+  "storage": {
+    "mr-institute-media": {
+      "accessible": true
+    },
+    "mr-institute-documents": {
+      "accessible": true
+    }
+  },
+  "rlsCheck": {
+    "applications": {
+      "blockedAsExpected": true
+    },
+    "students": {
+      "blockedAsExpected": true
+    },
+    "user_profiles": {
+      "blockedAsExpected": true
+    }
+  },
+  "overallSuccess": true,
+  "errors": []
+}

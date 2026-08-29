@@ -13,7 +13,7 @@ export function SystemHealthWidget() {
         <div className="space-y-6">
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span className="font-semibold text-text-primary">Database Connection (Firebase)</span>
+              <span className="font-semibold text-text-primary">Database Connection (Supabase)</span>
               <span className="text-success font-bold">Connected</span>
             </div>
             <div className="w-full h-2 bg-surface rounded-full overflow-hidden">

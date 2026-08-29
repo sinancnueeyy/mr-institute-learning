@@ -17,6 +17,7 @@ export const ROUTES = {
   AUTH: {
     LOGIN: '/login',
     FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
   },
   OFFICE: {
     DASHBOARD: '/office',
@@ -45,6 +46,8 @@ export const ROUTES = {
       FORM_SUBMISSIONS: '/developer/forms/submissions',
       MEDIA: '/developer/media',
       NOTICES: '/developer/notices',
+      TESTIMONIALS: '/developer/testimonials',
+      CONTACT: '/developer/contact',
     }
   },
   ERROR: {
@@ -54,24 +57,34 @@ export const ROUTES = {
   }
 };
 
-export const FIREBASE_COLLECTIONS = {
-  SETTINGS: 'settings',
-  HOMEPAGE: 'homepage',
-  ABOUT: 'about',
-  SERVICES: 'services',
-  COURSES: 'courses',
-  CHARITY: 'charity',
-  GALLERY: 'gallery',
-  FORMS: 'forms',
-  FORM_SUBMISSIONS: 'formSubmissions',
+export const SUPABASE_TABLES = {
+  // System & Auth (2)
+  USER_PROFILES: 'user_profiles',
+  ACTIVITY_LOGS: 'activity_logs',
+
+  // CMS Content (11)
+  CMS_HOMEPAGE: 'cms_homepage',
+  CMS_ABOUT: 'cms_about',
+  CMS_COURSES: 'cms_courses',
+  CMS_SERVICES: 'cms_services',
+  CMS_CHARITY: 'cms_charity',
+  CMS_GALLERY: 'cms_gallery',
+  CMS_FORMS: 'cms_forms',
+  CMS_NOTICES: 'cms_notices',
+  CMS_MEDIA: 'cms_media',
+  CMS_SETTINGS: 'cms_settings',
+  CMS_TESTIMONIALS: 'cms_testimonials',
+
+  // Operations & Intake (8)
   APPLICATIONS: 'applications',
   STUDENTS: 'students',
   ENQUIRIES: 'enquiries',
+  SCHOLARSHIPS: 'scholarships',
+  CHARITY_APPLICATIONS: 'charity_applications',
+  FORM_SUBMISSIONS: 'form_submissions',
+  FOLLOW_UPS: 'follow_ups',
   NOTIFICATIONS: 'notifications',
-  USERS: 'users',
-  MEDIA: 'media',
-  REPORTS: 'reports',
-};
+} as const;
 
 export const ERROR_MESSAGES = {
   NETWORK_ERROR: 'A network error occurred. Please try again.',

@@ -1,9 +1,10 @@
 import { BaseRepository } from '../BaseRepository';
 import type { FollowUpRecord } from '../../types/operations';
+import { SUPABASE_TABLES } from '../../constants';
 
-class FollowUpsRepository extends BaseRepository<FollowUpRecord> {
+export class FollowUpsRepository extends BaseRepository<FollowUpRecord> {
   constructor() {
-    super('followUps');
+    super(SUPABASE_TABLES.FOLLOW_UPS);
   }
 }
 

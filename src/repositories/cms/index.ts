@@ -8,3 +8,4 @@ export * from './formsRepository';
 export * from './mediaRepository';
 export * from './settingsRepository';
 export * from './noticesRepository';
+export * from './testimonialsRepository';

@@ -20,6 +20,8 @@ const Charity = safeLazy(() => import('./pages/Charity'));
 const Gallery = safeLazy(() => import('./pages/Gallery'));
 const Contact = safeLazy(() => import('./pages/Contact'));
 const Login = safeLazy(() => import('./pages/Login'));
+const ForgotPassword = safeLazy(() => import('./pages/ForgotPassword'));
+const ResetPassword = safeLazy(() => import('./pages/ResetPassword'));
 const OfficeDashboard = safeLazy(() => import('./pages/office/OfficeDashboard'));
 const AdmissionsManagement = safeLazy(() => import('./pages/office/AdmissionsManagement'));
 const StudentDirectory = safeLazy(() => import('./pages/office/StudentDirectory'));
@@ -40,6 +42,9 @@ const DeveloperFormBuilder = safeLazy(() => import('./pages/developer/DeveloperF
 const DeveloperFormSubmissions = safeLazy(() => import('./pages/developer/DeveloperFormSubmissions'));
 const DeveloperMedia = safeLazy(() => import('./pages/developer/DeveloperMedia'));
 const DeveloperNotices = safeLazy(() => import('./pages/developer/DeveloperNotices'));
+const DeveloperTestimonials = safeLazy(() => import('./pages/developer/DeveloperTestimonials'));
+const DeveloperContact = safeLazy(() => import('./pages/developer/DeveloperContact'));
+const DeveloperActivityLogs = safeLazy(() => import('./pages/developer/DeveloperActivityLogs'));
 const DeveloperSettings = safeLazy(() => import('./pages/developer/DeveloperSettings'));
 const NotFound = safeLazy(() => import('./pages/error/NotFound'));
 const ServerError = safeLazy(() => import('./pages/error/ServerError'));
@@ -114,6 +119,8 @@ const router = createBrowserRouter([
         element: <AuthLayout />,
         children: [
           { path: ROUTES.AUTH.LOGIN, element: <Login /> },
+          { path: ROUTES.AUTH.FORGOT_PASSWORD, element: <ForgotPassword /> },
+          { path: ROUTES.AUTH.RESET_PASSWORD, element: <ResetPassword /> },
         ],
       },
       {
@@ -154,6 +161,9 @@ const router = createBrowserRouter([
           { path: ROUTES.DEVELOPER.CMS.FORM_SUBMISSIONS, element: <DeveloperFormSubmissions /> },
           { path: ROUTES.DEVELOPER.CMS.MEDIA, element: <DeveloperMedia /> },
           { path: ROUTES.DEVELOPER.CMS.NOTICES, element: <DeveloperNotices /> },
+          { path: ROUTES.DEVELOPER.CMS.TESTIMONIALS, element: <DeveloperTestimonials /> },
+          { path: ROUTES.DEVELOPER.CMS.CONTACT, element: <DeveloperContact /> },
+          { path: ROUTES.DEVELOPER.SYSTEM_LOGS, element: <DeveloperActivityLogs /> },
           { path: ROUTES.DEVELOPER.SETTINGS, element: <DeveloperSettings /> },
         ],
       },

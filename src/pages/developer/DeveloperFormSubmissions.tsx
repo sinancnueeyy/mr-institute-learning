@@ -5,10 +5,11 @@ import { Input } from '../../components/ui/Input';
 import { DataTable, type Column } from '../../components/ui/DataTable';
 import { Badge } from '../../components/ui/Badge';
 import { FadeIn } from '../../components/animations/FadeIn';
-import { Search, Download, Eye } from 'lucide-react';
+import { Search, Download, Eye, ExternalLink } from 'lucide-react';
 import { type FormSubmission } from '../../types/operations';
 import { formSubmissionsRepository } from '../../repositories/operations/formSubmissionsRepository';
 import { Dialog } from '../../components/ui/Dialog';
+import { StorageService } from '../../services/StorageService';
 
 export default function DeveloperFormSubmissions() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,6 +24,16 @@ export default function DeveloperFormSubmissions() {
     });
     return () => unsubscribe();
   }, []);
+
+  const handleViewFile = async (url: string) => {
+    try {
+      const signedUrl = await StorageService.getSignedDocumentUrl(url, 3600);
+      window.open(signedUrl || url, '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      console.error('Error opening file:', e);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -151,8 +162,13 @@ export default function DeveloperFormSubmissions() {
                         <p className="text-sm font-semibold">{file.fieldName}</p>
                         <p className="text-xs text-text-muted">{file.fileName}</p>
                       </div>
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={file.url} target="_blank" rel="noopener noreferrer">View</a>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleViewFile(file.url)}
+                        className="flex items-center gap-1"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5 mr-1" /> View
                       </Button>
                     </div>
                   ))}

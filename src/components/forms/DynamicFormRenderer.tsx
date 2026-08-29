@@ -3,7 +3,7 @@ import { type FormSchema } from '../../types/cms';
 import { formsRepository } from '../../repositories/cms';
 import { formSubmissionsRepository } from '../../repositories/operations/formSubmissionsRepository';
 import { notificationsRepository } from '../../repositories/operations';
-import { StorageService } from '../../firebase/storage';
+import { StorageService } from '../../services/StorageService';
 import { FormFieldRenderer } from './FormFieldRenderer';
 import { StepIndicator } from './StepIndicator';
 import { Button } from '../ui/Button';

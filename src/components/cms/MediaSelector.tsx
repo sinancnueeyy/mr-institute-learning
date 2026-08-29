@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { UploadCloud, Link as LinkIcon, Image as ImageIcon } from 'lucide-react';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { StorageService } from '../../firebase/storage';
+import { StorageService } from '../../services/StorageService';
 import { mediaRepository } from '../../repositories/cms';
 
 interface MediaSelectorProps {
@@ -58,9 +58,9 @@ export function MediaSelector({ label, value, onChange, type = 'image', placehol
           />
         </div>
         <input 
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
+          type="file" 
+          ref={fileInputRef} 
+          className="hidden" 
           accept={type === 'image' ? 'image/*' : type === 'video' ? 'video/*' : '*/*'}
           onChange={handleUpload}
         />

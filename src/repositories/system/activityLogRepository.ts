@@ -1,11 +1,10 @@
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/firestore';
-import type { ActivityLog } from '../../types/system';
 import { BaseRepository } from '../BaseRepository';
+import type { ActivityLog } from '../../types/system';
+import { SUPABASE_TABLES } from '../../constants';
 
-class ActivityLogRepository extends BaseRepository<ActivityLog> {
+export class ActivityLogRepository extends BaseRepository<ActivityLog> {
   constructor() {
-    super('activityLogs');
+    super(SUPABASE_TABLES.ACTIVITY_LOGS);
   }
 
   // Create an explicit log function to make it easy to use across the app
@@ -13,30 +12,34 @@ class ActivityLogRepository extends BaseRepository<ActivityLog> {
     logData: Omit<ActivityLog, 'id' | 'timestamp' | 'ipAddress' | 'deviceInfo'>
   ) {
     try {
-      const data: Omit<ActivityLog, 'id'> = {
+      const nowIso = new Date().toISOString();
+      const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown';
+
+      const data: any = {
         ...logData,
-        timestamp: new Date().toISOString(),
-        ipAddress: '192.168.1.1', // Placeholder
-        deviceInfo: navigator.userAgent, // Basic placeholder
+        timestamp: nowIso,
+        createdAt: nowIso,
+        ipAddress: '127.0.0.1',
+        deviceInfo: userAgent,
       };
+
       return await this.create(data);
     } catch (error) {
       console.error('Failed to write activity log:', error);
-      // We don't want a logging failure to crash the app operations
+      // Fire-and-forget: do not crash operations on logging failure
     }
   }
 
   async getRecentLogs(maxCount: number = 50) {
     try {
-      const q = query(
-        collection(db, this.collectionName),
-        orderBy('timestamp', 'desc'),
-        limit(maxCount)
-      );
-      const snapshot = await getDocs(q);
+      const res = await this.query([], {
+        orderBy: 'createdAt',
+        direction: 'desc',
+        limit: maxCount
+      });
       return {
-        data: snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as ActivityLog)),
-        error: null
+        data: res.data,
+        error: res.error?.message || null
       };
     } catch (error: any) {
       return { data: null, error: error.message };

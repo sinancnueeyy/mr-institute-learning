@@ -1,13 +1,14 @@
 import { BaseRepository } from '../BaseRepository';
 import { type FormSubmission } from '../../types/operations';
+import { SUPABASE_TABLES } from '../../constants';
 import { OfflineQueue } from '../../services/OfflineQueue';
 
-class FormSubmissionsRepository extends BaseRepository<FormSubmission> {
+export class FormSubmissionsRepository extends BaseRepository<FormSubmission> {
   constructor() {
-    super('formSubmissions');
+    super(SUPABASE_TABLES.FORM_SUBMISSIONS);
   }
 
-  async create(data: Omit<FormSubmission, 'id'>, customId?: string) {
+  override async create(data: Omit<FormSubmission, 'id'>, customId?: string) {
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
       OfflineQueue.enqueue('formSubmissions', data);
       return { data: { ...data, id: 'pending-offline' } as FormSubmission };

@@ -1,9 +1,10 @@
 import { BaseRepository } from '../BaseRepository';
 import { type HomepageContent } from '../../types/cms';
+import { SUPABASE_TABLES } from '../../constants';
 
-class HomepageRepository extends BaseRepository<HomepageContent> {
+export class HomepageRepository extends BaseRepository<HomepageContent> {
   constructor() {
-    super('cms_homepagecontent');
+    super(SUPABASE_TABLES.CMS_HOMEPAGE);
   }
 }
 

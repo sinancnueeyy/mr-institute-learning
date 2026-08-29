@@ -258,6 +258,28 @@ export interface MediaAsset {
   uploadedAt: string;
 }
 
+export interface ContactPageContent {
+  headline?: string;
+  subheadline?: string;
+  description?: string;
+  heroImage?: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  infoTitle?: string;
+  infoSubtitle?: string;
+  mapEmbedUrl?: string;
+  mapLocationName?: string;
+  mapTitle?: string;
+  mapSubtitle?: string;
+  formTitle?: string;
+  formSubtitle?: string;
+  submitButtonText?: string;
+  portalSectionTitle?: string;
+  portalSectionSubtitle?: string;
+  staffPortalButtonText?: string;
+  developerPortalButtonText?: string;
+}
+
 export interface SiteSettings {
   id: string;
   siteName: string;
@@ -270,6 +292,8 @@ export interface SiteSettings {
   emergencyContacts: { label: string; phone: string }[];
   officeHours: string;
   socialLinks: Record<string, string>;
+  mapEmbedUrl?: string;
+  contactContent?: ContactPageContent;
   formTypeMapping?: string;
   maintenanceMode: boolean;
   seo?: SeoMetadata;
