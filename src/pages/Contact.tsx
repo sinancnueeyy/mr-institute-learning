@@ -92,70 +92,62 @@ export default function Contact() {
                 
                 <div className="space-y-4">
                   {/* Campus Address Card */}
-                  {(settings?.address || content.mapLocationName) && (
-                    <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
-                      <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
-                        <MapPin className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-text-primary mb-1">Our Campus</h3>
-                        <p className="text-text-secondary leading-relaxed text-sm">
-                          {settings?.address || content.mapLocationName}
-                        </p>
-                      </div>
+                  <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
+                    <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                      <MapPin className="w-6 h-6" />
                     </div>
-                  )}
+                    <div>
+                      <h3 className="font-bold text-text-primary mb-1">Our Campus</h3>
+                      <p className="text-text-secondary leading-relaxed text-sm">
+                        {settings?.address || content.mapLocationName || 'MR Institute Campus, Main Knowledge City Road, Kerala, India'}
+                      </p>
+                    </div>
+                  </div>
 
                   {/* Phone Number Card */}
-                  {settings?.contactPhone && (
-                    <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
-                      <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
-                        <Phone className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-text-primary mb-1">Phone Number</h3>
-                        <a 
-                          href={`tel:${settings.contactPhone.replace(/\s+/g, '')}`} 
-                          className="text-brand-primary hover:text-brand-primary-hover font-medium text-sm transition-colors"
-                        >
-                          {settings.contactPhone}
-                        </a>
-                      </div>
+                  <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
+                    <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                      <Phone className="w-6 h-6" />
                     </div>
-                  )}
+                    <div>
+                      <h3 className="font-bold text-text-primary mb-1">Phone Number</h3>
+                      <a 
+                        href={`tel:${(settings?.contactPhone || '+91 98765 43210').replace(/\s+/g, '')}`} 
+                        className="text-brand-primary hover:text-brand-primary-hover font-medium text-sm transition-colors"
+                      >
+                        {settings?.contactPhone || '+91 98765 43210'}
+                      </a>
+                    </div>
+                  </div>
 
                   {/* Email Address Card */}
-                  {settings?.contactEmail && (
-                    <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
-                      <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
-                        <Mail className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-text-primary mb-1">Email Address</h3>
-                        <a 
-                          href={`mailto:${settings.contactEmail}`} 
-                          className="text-brand-primary hover:text-brand-primary-hover font-medium text-sm transition-colors"
-                        >
-                          {settings.contactEmail}
-                        </a>
-                      </div>
+                  <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
+                    <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                      <Mail className="w-6 h-6" />
                     </div>
-                  )}
+                    <div>
+                      <h3 className="font-bold text-text-primary mb-1">Email Address</h3>
+                      <a 
+                        href={`mailto:${settings?.contactEmail || 'info@mrinstitute.edu'}`} 
+                        className="text-brand-primary hover:text-brand-primary-hover font-medium text-sm transition-colors"
+                      >
+                        {settings?.contactEmail || 'info@mrinstitute.edu'}
+                      </a>
+                    </div>
+                  </div>
                   
                   {/* Working Hours Card */}
-                  {settings?.officeHours && (
-                    <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
-                      <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
-                        <Clock className="w-6 h-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-text-primary mb-1">Office Hours</h3>
-                        <p className="text-text-secondary leading-relaxed text-sm">
-                          {settings.officeHours}
-                        </p>
-                      </div>
+                  <div className="flex items-start gap-4 p-5 rounded-lg bg-white border border-border shadow-sm hover:border-brand-primary/30 transition-colors">
+                    <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center text-brand-primary shrink-0">
+                      <Clock className="w-6 h-6" />
                     </div>
-                  )}
+                    <div>
+                      <h3 className="font-bold text-text-primary mb-1">Office Hours</h3>
+                      <p className="text-text-secondary leading-relaxed text-sm">
+                        {settings?.officeHours || 'Monday – Saturday: 8:30 AM – 5:30 PM'}
+                      </p>
+                    </div>
+                  </div>
 
                   {/* Branch Offices */}
                   {settings?.branches && settings.branches.length > 0 && (
